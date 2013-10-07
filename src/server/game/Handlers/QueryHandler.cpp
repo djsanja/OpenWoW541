@@ -41,50 +41,44 @@ void WorldSession::SendNameQueryOpcode(ObjectGuid guid)
         return;
     }
     
-    data.WriteBit(0);
-    data.WriteBit(guid[1]);
-    data.WriteBit(guid[3]);
-    data.WriteBit(guid[2]);
-  
-    data.WriteBits(nameData->m_name.size(), 6);
-    data.WriteBit(guid[6]);
-    data.WriteBit(guid[4]);
-    data.WriteBit(guid[0]);
-    data.WriteBit(0);
-    
-    data.WriteBit(guid[5]);
     data.WriteBit(guid[7]);
-    
+    data.WriteBit(guid[3]);
+    data.WriteBit(guid[0]);
+    data.WriteBit(guid[2]);
+    data.WriteBit(guid[1]);
+    data.WriteBit(guid[6]);
+    data.WriteBits(nameData->m_name.size(), 6);
+    data.WriteBit(guid[4]);
+    data.WriteBit(0);
+    data.WriteBit(guid[5]);
+    data.WriteBit(0);
+
     data.FlushBits();
-    
-    data.WriteByteSeq(guid[1]);
-    
-    data.WriteString(nameData->m_name);             // played name
-    
-    data.WriteByteSeq(guid[0]);
-    data.WriteByteSeq(guid[7]);
-    
-    data << uint8(nameData->m_race);
-    data << uint8(0); // realm name
-    data << uint8(nameData->m_gender);
-    data << uint8(nameData->m_class);
-    
-    data.WriteByteSeq(guid[4]);
-    data.WriteByteSeq(guid[6]);
-    data.WriteByteSeq(guid[5]);
-    
-    data << uint32(50397209); // const player time 
-    
-    data.WriteByteSeq(guid[3]);
+
     data.WriteByteSeq(guid[2]);
-    
+    data.WriteByteSeq(guid[7]);
+    data << uint8(0); // name known
+    data.WriteByteSeq(guid[5]);
+    data.WriteByteSeq(guid[6]);
+    data.WriteByteSeq(guid[4]);
+    data.WriteByteSeq(guid[1]);
+    data << uint8(nameData->m_gender);
+    data << uint8(nameData->m_race);
+   // data << uint32(realmId);
+    data << uint8(nameData->m_class);
+    data.WriteByteSeq(guid[3]);
+    data.WriteByteSeq(guid[0]);
+    data.WriteString(nameData->m_name); // played name
+
     if (DeclinedName const* names = (player ? player->GetDeclinedNames() : NULL))
     {
-        data << uint8(1);                           // Name is declined
+        data << uint8(1); // Name is declined
         for (uint8 i = 0; i < MAX_DECLINED_NAME_CASES; ++i)
-             data << names->name[i];
+            data << names->name[i];
     }
-    
+   // else
+     //   data << uint8(0); // Name is not declined
+
     SendPacket(&data);
 }
 

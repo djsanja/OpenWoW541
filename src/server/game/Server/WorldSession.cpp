@@ -769,7 +769,7 @@ void WorldSession::SendAccountDataTimes(uint32 mask)
         data << uint32(GetAccountData(AccountDataType(i))->Time);// also unix time
 
     data << uint32(mask); 
-    data << uint8(1);
+    data << uint8(0);
     SendPacket(&data);
 }
 
