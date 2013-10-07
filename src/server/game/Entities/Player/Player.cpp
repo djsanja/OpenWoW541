@@ -49,7 +49,7 @@
 #include "GuildMgr.h"
 #include "InstanceSaveMgr.h"
 #include "InstanceScript.h"
-#include "DungeonLFGMgr.h"
+#include "LFGMgr.h"
 #include "Language.h"
 #include "Log.h"
 #include "MapInstanced.h"

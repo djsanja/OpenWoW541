@@ -22,7 +22,7 @@
 #include "GameObject.h"
 #include "Group.h"
 #include "InstanceScript.h"
-#include "DungeonLFGMgr.h"
+#include "LFGMgr.h"
 #include "Log.h"
 #include "Map.h"
 #include "Player.h"

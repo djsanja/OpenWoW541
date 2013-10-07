@@ -18,7 +18,7 @@
 #ifndef _LFGQUEUE_H
 #define _LFGQUEUE_H
 
-#include "DungeonLFG.h"
+#include "LFG.h"
 
 namespace lfg
 {

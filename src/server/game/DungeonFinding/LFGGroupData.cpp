@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "DungeonLFG.h"
-#include "DungeonLFGGroupData.h"
+#include "LFG.h"
+#include "LFGGroupData.h"
 
 namespace lfg
 {

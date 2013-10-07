@@ -21,10 +21,10 @@
 #include <ace/Singleton.h>
 #include "DBCStructure.h"
 #include "Field.h"
-#include "DungeonLFG.h"
-#include "DungeonLFGQueue.h"
-#include "DungeonLFGGroupData.h"
-#include "DungeonLFGPlayerData.h"
+#include "LFG.h"
+#include "LFGQueue.h"
+#include "LFGGroupData.h"
+#include "LFGPlayerData.h"
 
 class Group;
 class Player;
