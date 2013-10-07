@@ -606,7 +606,7 @@ DeclinedNames = 0
 #                     map files, client compatibility and class/race character creation.
 #        Default:     4 - (Expansion 4) // MOP
 #                     3 - (Expansion 3) // Cataclysm
-#                     2 - (Expansion 2) // Wraith of the Lich King
+#                     2 - (Expansion 2) // Wrath of the Lich King
 #                     1 - (Expansion 1)
 #                     0 - (Disabled, Ignore and disable expansion content (maps, races, classes)
 
