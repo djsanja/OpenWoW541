@@ -5,6 +5,10 @@ OpenWoW540
  
  https://github.com/OpenEmulator/OpenWoW540
  
+ Copyright (C) 2008-2013 Pandaren5.3.0
+
+ https://github.com/Raknar/Pandaren5.3.0
+
  Copyright (C) 2008-2013 TrinityCore <http://www.trinitycore.org/>
  
  https://github.com/TrinityCore/TrinityCore
