@@ -119,8 +119,8 @@ void LoadDB2Stores(std::string const& dataPath)
     }
 
     // Check loaded DB2 files proper version
-    if (!sItemStore.LookupEntry(89888)             ||       // last item added in 5.3.0 (17128)
-        !sItemExtendedCostStore.LookupEntry(3902)  )        // last item extended cost added in 5.3.0 (17128)
+    if (!sItemStore.LookupEntry(89888)             ||       // last item added in 5.0.5 (need 5.4.0 db2 file for correct this)
+        !sItemExtendedCostStore.LookupEntry(3902)  )        // last item extended cost added in 5.4.0 (17399)
     {
         TC_LOG_ERROR(LOG_FILTER_GENERAL, "Please extract correct db2 files from client 5.4.0 17399.");
         exit(1);
