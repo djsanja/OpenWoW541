@@ -1,1 +1,1 @@
--- OpenWorld World Database --
+-- OpenEMU World Database --
