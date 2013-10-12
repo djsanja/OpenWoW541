@@ -32,21 +32,23 @@ void WorldSession::SendAuthResponse(uint8 code, bool queued, uint32 queuePos)
     
     
     WorldPacket packet(SMSG_AUTH_RESPONSE, 1 + 4 + 1 + 4 + 1 + 4 + 1 + 1 + 1 + (queued ? 4 : 0));
+    packet.WriteBit(0);                                        // Is in queue ?
+    packet.WriteBit(0);                                        // Has account data ?
 
-    packet.WriteBits(0, 21);
-    packet.WriteBit(0);
-    packet.WriteBits(result2->GetRowCount(), 23);
-    packet.WriteBit(0);
-    packet.WriteBit(0);
+    packet.WriteBits(0, 21);                                   // Activate character template button
+    packet.WriteBit(0);                                        // Unknown
+    packet.WriteBits(result2->GetRowCount(), 23);              // Activation count for races
+    packet.WriteBit(0);                                        // Unknown
+    packet.WriteBit(0);                                        // Unknown
 
-    packet.WriteBits(0, 21);
-    packet.WriteBit(0);
-    packet.WriteBits(result->GetRowCount(), 23);
-    packet.WriteBit(0);
+    packet.WriteBits(0, 21);                                   // Unknown
+    packet.WriteBit(0);                                        // Unknown
+    packet.WriteBits(result->GetRowCount(), 23);               // Activation count for races
+    packet.WriteBit(0);                                        // Unknown
 
     packet.FlushBits();
 
-    packet << uint8(0);
+    packet << uint32(1);                                       // Auth response ?
 
     do
     {
@@ -56,8 +58,8 @@ void WorldSession::SendAuthResponse(uint8 code, bool queued, uint32 queuePos)
         packet << fields[0].GetUInt8();
     }while(result->NextRow());
 
-    packet << uint32(0);
-    packet << uint32(0);
+    packet << uint32(0);                                        // Unknown
+    packet << uint32(0);                                        // Unknown
 
     do
     {
