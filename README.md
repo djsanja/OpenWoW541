@@ -23,10 +23,6 @@ You can help by providing updates via either end or through our forum.
 
 We hire motivated people and common sense.
 
-Our forum is NOW AVAILABLE, If you do not want to join our team, 
-but you want to help, "Contributor" you shook available, and give you access 
-to changes made ​​by BurstEmu (Private Project) or by another contributor or Staff
-
 ----------------
 
 Sniff a section shook available, if you're a gamer official wow, you can also help 
@@ -34,7 +30,7 @@ us by contributing in this way.
 
 ----------------
 
-We also expect the opening of a kingdom (Only for the Tests). The authorized contributors 
+We also expect the opening of a realms (Only for the Tests). The authorized contributors 
 and members of our team will have coding grade Mj for possible modification or advanced tests.
 
 Members will simply basic commands fast movement.
