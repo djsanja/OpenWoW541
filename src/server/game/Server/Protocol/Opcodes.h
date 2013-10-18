@@ -388,7 +388,7 @@ enum Opcodes
     CMSG_NEXT_CINEMATIC_CAMERA                        = 0x2014,
     CMSG_NPC_TEXT_QUERY                               = 0x108B, // 17399
     CMSG_OBJECT_UPDATE_FAILED                         = 0x1926, // 17399
-    CMSG_OBJECT_UPDATE_RESCUED                        = 0x3906,
+    CMSG_OBJECT_UPDATE_RESCUED                        = 0x131A, // 17399 not sure
     CMSG_OFFER_PETITION                               = 0x4817,
     CMSG_OPENING_CINEMATIC                            = 0x7009, // temporrary
     CMSG_OPEN_ITEM                                    = 0x6A34,
