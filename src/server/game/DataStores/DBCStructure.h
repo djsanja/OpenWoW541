@@ -209,7 +209,7 @@ struct AchievementCriteriaEntry
             uint32  castCount;                              // 4
         } cast_spell;
 
-        // ACHIEVEMENT_CRITERIA_TYPE_BG_OBJECTIVE_CAPTURE
+        // ACHIEVEMENT_CRITERIA_TYPE_BG_OBJECTIVE_CAPTURE   = 30
         struct
         {
             uint32 objectiveId;                             // 3
@@ -499,74 +499,26 @@ struct AchievementCriteriaEntry
             uint32  killCount;                              // 4
         } honorable_kill;
 
-        // ACHIEVEMENT_CRITERIA_TYPE_GUILD_GOLD_IN_REPAIRS  = 124
-        struct
-        {
-            uint32  unused;                                 // 3
-            uint32  guildgoldinrepairsCount;                // 4
-        } guild_gold_in_repairs;
-
-        // ACHIEVEMENT_CRITERIA_TYPE_GUILD_LEVEL            = 125
-        struct
-        {
-            uint32  unused;                                 // 3
-            uint32  guildlevelCount;                        // 4
-        } guild_level;
-
-        // ACHIEVEMENT_CRITERIA_TYPE_GUILD_CRAFTING         = 126
-        struct
-        {
-            uint32  unused;                                 // 3
-            uint32  guildcraftingCount;                     // 4
-        } guild_crafting;
-
-        // ACHIEVEMENT_CRITERIA_TYPE_GUILD_FISHING          = 127
-        struct
-        {
-            uint32  unused;                                 // 3
-            uint32  guildfishingCount;                      // 4
-        } guild_fishing;
-
-        // ACHIEVEMENT_CRITERIA_TYPE_GUILD_TABS             = 128
-        struct
-        {
-            uint32  unused;                                 // 3
-            uint32  guildtabCount;                          // 4
-        } guild_tab;
-
-        // ACHIEVEMENT_CRITERIA_TYPE_GUILD_ACHIEVE_POINTS   = 129
-        struct
-        {
-            uint32  unused;                                 // 3
-            uint32  guildachieve_point_Count;               // 4
-        } guild_achieve_point;
-
         // ACHIEVEMENT_CRITERIA_TYPE_WIN_RATED_BG           = 130
         struct
         {
             uint32  unused;                                 // 3
-            uint32  guildcraftingCount;                     // 4
+            uint32  ratedbgwinCount;                        // 4
         } rated_bg_win;
 
-        // ACHIEVEMENT_CRITERIA_TYPE_ARENA_RATING           = 132
+        // ACHIEVEMENT_CRITERIA_TYPE_RATED_BG_RATING        = 132
         struct
         {
             uint32  unused;                                 // 3
-            uint32  arenarating;                            // 4
-        } arena_rating;
+            uint32  rbgrating;                              // 4
+        } rbg_rating;
 
-        //133 = UNK
-        //134 = QUEST COUNT UPTO 100,000
-        //135 = HONORABLE KILLS UPTO 1,000,000
-        //136 = UNK
-        //137 = UNK
-
-        // ACHIEVEMENT_CRITERIA_TYPE_GUILD_I_CHALLENGE      = 138
+        // ACHIEVEMENT_CRITERIA_TYPE_GUILD_CHALLENGE_TYPE   = 138
         struct
         {
-            uint32  unused;                                 // 3
-            uint32  guildinstancechallengeCount;            // 4
-        } guild_instance_challenge_count;
+            uint32  flag;                                   // 3
+            uint32  guildchallengetype;                     // 4
+        } guild_challenge_type;
 
         // ACHIEVEMENT_CRITERIA_TYPE_GUILD_CHALLENGE        = 139
         struct
@@ -574,17 +526,6 @@ struct AchievementCriteriaEntry
             uint32  unused;                                 // 3
             uint32  guildchallengeCount;                    // 4
         } guild_challenge_count;
-
-        //140 = UNK
-        //141 = UNK
-        //143 = UNK
-        //144 = UNK
-        //145 = UNK
-        //146 = UNK
-        //147 = UNK
-        //148 = UNK
-        //149 = UNK
-        //150 = UNK
 
         struct
         {
@@ -1580,9 +1521,10 @@ struct MapEntry
     // Helpers
     uint32 Expansion() const { return addon; }
 
-    bool IsDungeon() const { return map_type == MAP_INSTANCE || map_type == MAP_RAID; }
-    bool IsNonRaidDungeon() const { return map_type == MAP_INSTANCE; }
-    bool Instanceable() const { return map_type == MAP_INSTANCE || map_type == MAP_RAID || map_type == MAP_BATTLEGROUND || map_type == MAP_ARENA; }
+    bool IsDungeon() const { return map_type == MAP_INSTANCE || map_type == MAP_RAID || map_type == MAP_SCENARIO; }
+    bool IsNonRaidDungeon() const { return map_type == MAP_INSTANCE || map_type == MAP_SCENARIO; }
+    bool Instanceable() const { return map_type == MAP_INSTANCE || map_type == MAP_RAID || map_type == MAP_BATTLEGROUND || map_type == MAP_ARENA || map_type == MAP_SCENARIO; }
+    bool IsScenario() const { return map_type == MAP_SCENARIO; } 
     bool IsRaid() const { return map_type == MAP_RAID; }
     bool IsBattleground() const { return map_type == MAP_BATTLEGROUND; }
     bool IsBattleArena() const { return map_type == MAP_ARENA; }
@@ -1601,7 +1543,7 @@ struct MapEntry
 
     bool IsContinent() const
     {
-        return MapID == 0 || MapID == 1 || MapID == 530 || MapID == 571;
+        return MapID == 0 || MapID == 1 || MapID == 530 || MapID == 571 || MapID == 870;
     }
 };
 
