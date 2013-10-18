@@ -555,11 +555,11 @@ struct AchievementCriteriaEntry
             uint32  arenarating;                            // 4
         } arena_rating;
 
-		//133 = UNK
+        //133 = UNK
         //134 = QUEST COUNT UPTO 100,000
         //135 = HONORABLE KILLS UPTO 1,000,000
-		//136 = UNK
-		//137 = UNK
+        //136 = UNK
+        //137 = UNK
 
         // ACHIEVEMENT_CRITERIA_TYPE_GUILD_I_CHALLENGE      = 138
         struct
@@ -575,16 +575,16 @@ struct AchievementCriteriaEntry
             uint32  guildchallengeCount;                    // 4
         } guild_challenge_count;
 
-		//140 = UNK
-		//141 = UNK
-		//143 = UNK
-		//144 = UNK
-		//145 = UNK
-		//146 = UNK
-		//147 = UNK
-		//148 = UNK
-		//149 = UNK
-		//150 = UNK
+        //140 = UNK
+        //141 = UNK
+        //143 = UNK
+        //144 = UNK
+        //145 = UNK
+        //146 = UNK
+        //147 = UNK
+        //148 = UNK
+        //149 = UNK
+        //150 = UNK
 
         struct
         {
