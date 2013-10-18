@@ -1570,6 +1570,7 @@ void GameObject::Use(Unit* user)
                 // 15005
                 bg->EventPlayerClickedOnFlag(player, this);
                 return;                                     //we don;t need to delete flag ... it is despawned!
+                // Tk Orbs
                 bg->EventPlayerClickedOnOrb1(player, this);
                 return;                                     //we don't need to delete orb1 ... it is despawned!
                 bg->EventPlayerClickedOnOrb2(player, this);

@@ -1911,7 +1911,15 @@ void Spell::EffectOpenLock(SpellEffIndex effIndex)
             // in battleground check
             if (Battleground* bg = player->GetBattleground())
             {
-                bg->EventPlayerClickedOnFlag(player, gameObjTarget);
+                if (bg->GetTypeID(true) == BATTLEGROUND_EY)
+                    bg->EventPlayerClickedOnFlag(player, gameObjTarget);
+                if (bg->GetTypeID(true) == BATTLEGROUND_TK)
+                {    
+					bg->EventPlayerClickedOnOrb1(player, gameObjTarget);
+					bg->EventPlayerClickedOnOrb2(player, gameObjTarget);
+					bg->EventPlayerClickedOnOrb3(player, gameObjTarget);
+					bg->EventPlayerClickedOnOrb4(player, gameObjTarget);
+				}
                 return;
             }
         }
@@ -1923,6 +1931,13 @@ void Spell::EffectOpenLock(SpellEffIndex effIndex)
             {
                 if (bg->GetTypeID(true) == BATTLEGROUND_EY)
                     bg->EventPlayerClickedOnFlag(player, gameObjTarget);
+                if (bg->GetTypeID(true) == BATTLEGROUND_TK)
+                {    
+					bg->EventPlayerClickedOnOrb1(player, gameObjTarget);
+					bg->EventPlayerClickedOnOrb2(player, gameObjTarget);
+					bg->EventPlayerClickedOnOrb3(player, gameObjTarget);
+					bg->EventPlayerClickedOnOrb4(player, gameObjTarget);
+				}
                 return;
             }
         }
