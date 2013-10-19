@@ -325,31 +325,48 @@ void ReadAreaTableDBC()
 
 void ReadLiquidTypeTableDBC()
 {
-    //printf("Read LiquidType.dbc file...");
-    //HANDLE dbcFile;
-    //if (!SFileOpenFileEx(LocaleMpq, "DBFilesClient\\LiquidType.dbc", SFILE_OPEN_PATCHED_FILE, &dbcFile))
-    //{
-    //    printf("Fatal error: Cannot find LiquidType.dbc in archive!\n");
-    //    exit(1);
-    //}
+    HANDLE localeFile;
+    char localMPQ[512];
 
-    //DBCFile dbc(dbcFile);
-    //if(!dbc.open())
-    //{
-    //    printf("Fatal error: Invalid LiquidType.dbc file format!\n");
-    //    exit(1);
-    //}
+    sprintf(localMPQ, "%s/Data/misc.MPQ", input_path);
+    if (FileExists(localMPQ)==false)
+    {   // Use misc.mpq
+        printf(localMPQ, "%s/Data/%s/locale-%s.MPQ", input_path);
+    }
 
-    //size_t liqTypeCount = dbc.getRecordCount();
-    //size_t liqTypeMaxId = dbc.getMaxId();
-    //LiqType = new uint16[liqTypeMaxId + 1];
-    //memset(LiqType, 0xff, (liqTypeMaxId + 1) * sizeof(uint16));
+    if (!SFileOpenArchive(localMPQ, 0, MPQ_OPEN_READ_ONLY, &localeFile))
+    {
+        exit(1);
+    }
 
-    //for(uint32 x = 0; x < liqTypeCount; ++x)
-    //    LiqType[dbc.getRecord(x).getUInt(0)] = dbc.getRecord(x).getUInt(3);
+    printf("Read LiquidType.dbc file...");
 
-    //SFileCloseFile(dbcFile);
-    //printf("Done! (%u LiqTypes loaded)\n", (uint32)liqTypeCount);
+    HANDLE dbcFile;
+    if (!SFileOpenFileEx(localeFile, "DBFilesClient\\LiquidType.dbc", SFILE_OPEN_PATCHED_FILE, &dbcFile))
+    {
+        if (!SFileOpenFileEx(localeFile, "DBFilesClient\\LiquidType.dbc", SFILE_OPEN_PATCHED_FILE, &dbcFile))
+        {
+            printf("Fatal error: Cannot find LiquidType.dbc in archive!\n");
+            exit(1);
+        }
+    }
+
+    DBCFile dbc(dbcFile);
+    if (!dbc.open())
+    {
+        printf("Fatal error: Invalid LiquidType.dbc file format!\n");
+        exit(1);
+    }
+
+    size_t LiqType_count = dbc.getRecordCount();
+    size_t LiqType_maxid = dbc.getMaxId();
+    LiqType = new uint16[LiqType_maxid + 1];
+    memset(LiqType, 0xff, (LiqType_maxid + 1) * sizeof(uint16));
+
+    for (uint32 x = 0; x < LiqType_count; ++x)
+        LiqType[dbc.getRecord(x).getUInt(0)] = dbc.getRecord(x).getUInt(3);
+
+    printf("Done! (%lu LiqTypes loaded)\n", LiqType_count);
 }
 
 //
