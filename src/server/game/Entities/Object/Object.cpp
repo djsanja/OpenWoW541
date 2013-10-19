@@ -488,7 +488,7 @@ void Object::BuildMovementUpdate(ByteBuffer* data, uint16 flags) const //5.4.0
         data->WriteBit(!movementFlagsExtra);
         data->WriteBit(guid1[2]);
         data->WriteBit(!movementFlags);
-        data->WriteBit(0); // hasTimestamp
+        data->WriteBit(1); // hasTimestamp
 
         if (movementFlags)
             data->WriteBits(movementFlags, 30);
