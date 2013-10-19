@@ -633,7 +633,7 @@ enum Opcodes
     MSG_MOVE_TELEPORT                                 = 0x00A0, // 17399
     MSG_MOVE_TELEPORT_ACK                             = 0x390C,
     MSG_MOVE_TELEPORT_CHEAT                           = 0x3A10,
-    MSG_MOVE_TIME_SKIPPED                             = 0x131A,
+    MSG_MOVE_TIME_SKIPPED                             = 0x19B3,
     MSG_MOVE_TOGGLE_COLLISION_CHEAT                   = 0x030A, // 17399
     MSG_MOVE_TOGGLE_FALL_LOGGING                      = 0x0000,
     MSG_MOVE_TOGGLE_LOGGING                           = 0x0000,
