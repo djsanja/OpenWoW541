@@ -381,7 +381,7 @@ enum Opcodes
     CMSG_MOVE_SET_RELATIVE_POSITION                   = 0x0000,
     CMSG_MOVE_SET_VEHICLE_REC_ID_ACK                  = 0x0000,
     CMSG_MOVE_SPLINE_DONE                             = 0x790E,
-    CMSG_MOVE_TIME_SKIPPED                            = 0x7A0A,
+    CMSG_MOVE_TIME_SKIPPED                            = 0x0313, // 17399
     CMSG_MOVE_TOGGLE_COLLISION_ACK                    = 0x0000,
     CMSG_MOVE_WATER_WALK_ACK                          = 0x3B00,
     CMSG_NEW_SPELL_SLOT                               = 0x0000,

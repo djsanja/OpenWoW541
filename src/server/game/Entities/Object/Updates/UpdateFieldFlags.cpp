@@ -183,12 +183,15 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_PUBLIC,            //CGUnitData::summonedBy,2
     UF_FLAG_PUBLIC,            //CGUnitData::createdBy,2
     UF_FLAG_PUBLIC,            //CGUnitData::createdBy,2
+    UF_FLAG_PUBLIC,            //CGUnitData::demoncreator,2
+    UF_FLAG_PUBLIC,            //CGUnitData::demoncreator,2
     UF_FLAG_PUBLIC,            //CGUnitData::target,2
     UF_FLAG_PUBLIC,            //CGUnitData::target,2
     UF_FLAG_PUBLIC,            //CGUnitData::BATTLE_PET_COMPANION_GUID
     UF_FLAG_PUBLIC,            //CGUnitData::channelObject,2
     UF_FLAG_PUBLIC,            //CGUnitData::channelObject,2
     UF_FLAG_PUBLIC,            //CGUnitData::summonedByHomeRealm,1
+    UF_FLAG_PUBLIC,            //CGUnitData::sex,1
     UF_FLAG_PUBLIC,            //CGUnitData::channelSpell,1
     UF_FLAG_PUBLIC,            //CGUnitData::displayPower,1 - bytes
     UF_FLAG_PUBLIC,            //CGUnitData::overrideDisplayPowerID,1
@@ -244,11 +247,12 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_PUBLIC,            //CGUnitData::modCastingSpeed,1
     UF_FLAG_PUBLIC,            //CGUnitData::modSpellHaste,1
     UF_FLAG_PUBLIC,            //CGUnitData::modHaste,1
+    UF_FLAG_PUBLIC,            //CGUnitData::modRangedHaste,1
     UF_FLAG_PUBLIC,            //CGUnitData::modHasteRegen,1
     UF_FLAG_PUBLIC,            //CGUnitData::createdBySpell,1
     UF_FLAG_PUBLIC | UF_FLAG_VIEWERDEPENDENT,            //CGUnitData::npcFlags[UMNW0],1
-    UF_FLAG_PUBLIC,            //CGUnitData::npcFlags,2
-    UF_FLAG_PUBLIC,            //CGUnitData::emoteState,1
+    UF_FLAG_PUBLIC,            //CGUnitData::emoteState,2
+    UF_FLAG_PUBLIC,            //CGUnitData::emoteState,2
     UF_FLAG_PRIVATE | UF_FLAG_OWNER,            //CGUnitData::stats,5
     UF_FLAG_PRIVATE | UF_FLAG_OWNER,            //CGUnitData::stats,5
     UF_FLAG_PRIVATE | UF_FLAG_OWNER,            //CGUnitData::stats,5
@@ -320,6 +324,8 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_PUBLIC,            //CGUnitData::battlePetCompanionGUID,2
     UF_FLAG_PUBLIC,            //CGUnitData::battlePetCompanionGUID,2
     UF_FLAG_PUBLIC,            //CGUnitData::battlePetCompanionNameTimestamp,1
+    UF_FLAG_PUBLIC,            //CGUnitData::interactSpellId,1
+
     UF_FLAG_PUBLIC,            //CGPlayerData::duelArbiter,2
     UF_FLAG_PUBLIC,            //CGPlayerData::duelArbiter,2
     UF_FLAG_PUBLIC,            //CGPlayerData::playerFlags,1
@@ -2097,7 +2103,7 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_PRIVATE,            //CGPlayerData::local.arenaTeams,21
     UF_FLAG_PRIVATE,            //CGPlayerData::local.arenaTeams,21
     UF_FLAG_PRIVATE,            //CGPlayerData::local.arenaTeams,21
-    UF_FLAG_PRIVATE,            //CGPlayerData::local.battlegroundRating,1
+    //UF_FLAG_PRIVATE,            //CGPlayerData::local.battlegroundRating,1
     UF_FLAG_PRIVATE,            //CGPlayerData::local.maxLevel,1
     UF_FLAG_PRIVATE,            //CGPlayerData::local.runeRegen,4
     UF_FLAG_PRIVATE,            //CGPlayerData::local.runeRegen,4
@@ -2134,7 +2140,7 @@ uint32 UnitUpdateFieldFlags[PLAYER_END] =
     UF_FLAG_PRIVATE,            //CGPlayerData::local.uiHitModifier,1
     UF_FLAG_PRIVATE,            //CGPlayerData::local.uiSpellHitModifier,1
     UF_FLAG_PRIVATE,            //CGPlayerData::local.homeRealmTimeOffset,1
-    UF_FLAG_PRIVATE,            //CGPlayerData::local.modRangedHaste,1
+    //UF_FLAG_PRIVATE,            //CGPlayerData::local.modRangedHaste,1
     UF_FLAG_PRIVATE,            //CGPlayerData::local.modPetHaste,1
     UF_FLAG_PRIVATE,            //CGPlayerData::local.summonedBattlePetGUID,2
     UF_FLAG_PRIVATE,            //CGPlayerData::local.summonedBattlePetGUID,2
@@ -2233,5 +2239,6 @@ uint32 AreaTriggerUpdateFieldFlags[AREATRIGGER_END] =
     UF_FLAG_PUBLIC,            //CGAreaTriggerData::m_caster,2
     UF_FLAG_PUBLIC,            //CGAreaTriggerData::m_duration,1
     UF_FLAG_PUBLIC,            //CGAreaTriggerData::m_spellID,1
+    UF_FLAG_PUBLIC,            //CGAreaTriggerData::explicitScale,1
     UF_FLAG_VIEWERDEPENDENT,            //CGAreaTriggerData::m_spellVisualID,1
 };
