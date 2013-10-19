@@ -852,21 +852,13 @@ uint32 BattlegroundTP::GetPrematureWinner()
     return Battleground::GetPrematureWinner();
 }
 
-uint32 BattlegroundTP::GetSecondTeam(uint32 team) const
-{
-    if (team == TEAM_ALLIANCE)
-        return TEAM_HORDE;
-    else
-        return TEAM_ALLIANCE;
-}
-
 bool BattlegroundTP::IsDoubleJeopardyEligible(Player* const player) const
 {
     if (!player)
         return false;
 
     // Score must be 3 : 2
-    if (GetTeamScore(player->GetTeamId()) != 3 || GetTeamScore(GetSecondTeam(player->GetTeamId())) != 2)
+    if (GetTeamScore(player->GetTeamId()) != 3 || GetTeamScore(GetOtherTeam(player->GetTeamId())) != 2)
         return false;
 
     // Last three captures must be done by winner's team
@@ -888,7 +880,7 @@ bool BattlegroundTP::IsTwinPeaksPerfectionEligible(Player* const player) const
         return false;
 
     // Score must be 3 : 0
-    if (GetTeamScore(player->GetTeamId()) != 3 || GetTeamScore(GetSecondTeam(player->GetTeamId())) != 0)
+    if (GetTeamScore(player->GetTeamId()) != 3 || GetTeamScore(GetOtherTeam(player->GetTeamId())) != 0)
         return false;
 
     // At least one killing blow

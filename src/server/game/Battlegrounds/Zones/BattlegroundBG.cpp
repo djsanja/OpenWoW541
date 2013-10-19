@@ -543,15 +543,6 @@ uint32 BattlegroundBG::GetPrematureWinner()
     return Battleground::GetPrematureWinner();
 }
 
-
-uint32 BattlegroundBG::GetSecondTeam(uint32 team) const
-{
-    if (team == TEAM_ALLIANCE)
-        return TEAM_HORDE;
-    else
-        return TEAM_ALLIANCE;
-}
-
 bool BattlegroundBG::SetupBattleground()
 {
     for (int i = 0; i < BG_BG_DYNAMIC_NODES_COUNT; ++i)
@@ -711,7 +702,7 @@ bool BattlegroundBG::IsFullCoverageEligible(uint32 team) const
 
 bool BattlegroundBG::IsJuggerNotEligible(uint8 team) const
 {
-    if (m_TeamScores[team] == BG_BG_MAX_TEAM_SCORE && m_TeamScores[GetSecondTeam(team)] == BG_BG_MAX_TEAM_SCORE - 10.0f)
+    if (m_TeamScores[team] == BG_BG_MAX_TEAM_SCORE && m_TeamScores[GetOtherTeam(team)] == BG_BG_MAX_TEAM_SCORE - 10.0f)
         return true;
 
     return false;

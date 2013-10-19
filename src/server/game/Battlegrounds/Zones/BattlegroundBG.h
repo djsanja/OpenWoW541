@@ -262,7 +262,6 @@ class BattlegroundBG : public Battleground
         bool IsJuggerNotEligible(uint8 team) const;
         bool IsDontGetCockyKidEligible(uint32 team) const { return dontGetCockyKid[GetTeamIndexByTeamId(team)]; }
         bool IsFullCoverageEligible(uint32 team) const;
-        uint32 GetSecondTeam(uint32 team) const;
 
         uint32 GetPrematureWinner();
     private:

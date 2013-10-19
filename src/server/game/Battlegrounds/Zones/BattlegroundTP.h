@@ -179,7 +179,6 @@ class BattlegroundTP : public Battleground
         void RespawnFlag(uint32 Team, bool captured);
         void RespawnFlagAfterDrop(uint32 Team);
         uint8 GetFlagState(uint32 team)             { return _flagState[GetTeamIndexByTeamId(team)]; }
-        uint32 GetSecondTeam(uint32 team) const;
 
         /* Battleground Events */
         void EventPlayerDroppedFlag(Player* Source);
@@ -215,7 +214,6 @@ class BattlegroundTP : public Battleground
 
         bool IsDoubleJeopardyEligible(Player* const player) const;
         bool IsTwinPeaksPerfectionEligible(Player* const player) const;
-        bool HandlePlayerUnderMap(Player* /*plr*/);
 
         uint32 GetPrematureWinner();
 
