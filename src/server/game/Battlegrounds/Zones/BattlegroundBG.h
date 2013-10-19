@@ -57,9 +57,9 @@ const uint32 BG_BG_OP_NODEICONS[5]  =    {1842, 1846, 1845};
 /* Note: code uses that these IDs follow each other */
 enum BG_BG_NodeObjectId
 {
-    BG_BG_OBJECTID_NODE_BANNER_0    = 180087,       // Light House
-    BG_BG_OBJECTID_NODE_BANNER_1    = 180088,       // Waterworks
-    BG_BG_OBJECTID_NODE_BANNER_2    = 180089,       //Mines
+    BG_BG_OBJECTID_NODE_BANNER_0    = 208779,       // Light House
+    BG_BG_OBJECTID_NODE_BANNER_1    = 208781,       // Waterworks
+    BG_BG_OBJECTID_NODE_BANNER_2    = 208780,       // Mines
 };
 
 enum BG_BG_ObjectType
@@ -102,8 +102,10 @@ enum BG_BG_ObjectTypes
     BG_BG_OBJECTID_AURA_H               = 180101,
     BG_BG_OBJECTID_AURA_C               = 180102,
 
-    BG_BG_OBJECTID_GATE_A               = 180255,
-    BG_BG_OBJECTID_GATE_H               = 180256
+    BG_BG_OBJECTID_GATE_A_1             = 207177,
+    BG_BG_OBJECTID_GATE_A_2             = 180322,
+    BG_BG_OBJECTID_GATE_H_1             = 207178,
+    BG_BG_OBJECTID_GATE_H_2             = 180322
 };
 
 enum BG_BG_Timers
@@ -169,34 +171,41 @@ enum BG_BG_Objectives
 // x, y, z, o
 const float BG_BG_NodePositions[BG_BG_DYNAMIC_NODES_COUNT][4] =
 {
-    //NEEDS CORRECT CO ORDS
-    {1185.71f, 1185.24f, -56.36f, 2.56f},                   // Light House
-    {990.75f, 1008.18f, -42.60f, 2.43f},                    // Waterworks
-    {817.66f, 843.34f, -56.54f, 3.01f},                     // Mines
+    {1057.790f, 1278.285f, 3.1500f, 1.945662f},                   // Light House
+    {1251.010f, 958.2685f, 5.6000f, 5.892280f},                   // Waterworks
+    {980.0446f, 948.7411f, 12.650f, 5.904071f}                    // Mines
 };
 
 // x, y, z, o, rot0, rot1, rot2, rot3
-const float BG_BG_DoorPositions[2][8] =
+const float BG_BG_DoorPositions[4][8] =
 {
-    //NEEDS CORRECT CO ORDS
-    {1284.597f, 1281.167f, -15.97792f, 0.7068594f, 0.012957f, -0.060288f, 0.344959f, 0.93659f},
-    {708.0903f, 708.4479f, -17.8342f, -2.391099f, 0.050291f, 0.015127f, 0.929217f, -0.365784f}
+    { 918.160f, 1336.75f, 27.6299f, 2.87927f, 0.0f, 0.0f, 0.983231f, 0.182367f },
+    { 918.160f, 1336.75f, 26.6299f, 2.87927f, 0.0f, 0.0f, 0.983231f, 0.182367f },
+    { 1396.15f, 977.014f, 7.43169f, 6.27043f, 0.0f, 0.0f, 0.006378f, -0.99998f },
+    { 1396.15f, 977.014f, 0.33169f, 6.27043f, 0.0f, 0.0f, 0.006378f, -0.99998f }
+};
+
+struct NodeInfo
+{
+    uint8 bannerType;
+    uint32 timer;
+    uint32 team;
 };
 
 // Tick intervals and given points: case 0, 1, 2, 3 captured nodes
-const uint32 BG_BG_TickIntervals[4] = {0, 12000, 9000, 6000};
-const uint32 BG_BG_TickPoints[4] = {0, 10, 15, 20};
+const uint32 BG_BG_TickIntervals[4] = {0, 9000, 3000, 1000};
+const uint32 BG_BG_TickPoints[4] = {0, 10, 10, 30};
 
 // WorldSafeLocs ids for 3 nodes, and for ally, and horde starting location
-const uint32 BG_BG_GraveyardIds[BG_BG_ALL_NODES_COUNT] = {895, 894, 893, 897, 896};
+const uint32 BG_BG_GraveyardIds[BG_BG_ALL_NODES_COUNT] = {1735, 1736, 1738, 1739, 1740};
 
 // x, y, z, o
 const float BG_BG_BuffPositions[BG_BG_DYNAMIC_NODES_COUNT][4] =
 {
     //NEEDS CORRECT CO ORDS
-    {1185.71f, 1185.24f, -56.36f, 2.56f},                   // Light House
-    {990.75f, 1008.18f, -42.60f, 2.43f},                    // Waterworks
-    {817.66f, 843.34f, -56.54f, 3.01f},                     // Mines
+    { 1063.57f, 1313.42f, 4.91f, 4.14f }, // Lighthouse
+    { 961.830f, 977.03f, 14.15f, 4.55f }, // Waterworks
+    { 1193.09f, 1017.46f, 7.98f, 0.24f }  // Mine
 };
 
 // x, y, z, o
@@ -251,7 +260,10 @@ class BattlegroundBG : public Battleground
 
         /* achievement req. */
         bool IsAllNodesConrolledByTeam(uint32 team) const;  // overwrited
-        bool IsTeamScores500Disadvantage(uint32 team) const { return m_TeamScores500Disadvantage[GetTeamIndexByTeamId(team)]; }
+        bool IsJuggerNotEligible(uint8 team) const;
+        bool IsDontGetCockyKidEligible(uint32 team) const { return dontGetCockyKid[GetTeamIndexByTeamId(team)]; }
+        bool IsFullCoverageEligible(uint8 team) const;
+        uint32 GetSecondTeam(uint32 team) const;
 
         uint32 GetPrematureWinner();
     private:
@@ -285,6 +297,7 @@ class BattlegroundBG : public Battleground
         uint32              m_HonorTics;
         uint32              m_ReputationTics;
         // need for achievements
-        bool                m_TeamScores500Disadvantage[BG_TEAMS_COUNT];
+        NodeInfo m_nodeInfo[BG_BG_DYNAMIC_NODES_COUNT];
+        bool dontGetCockyKid[BG_TEAMS_COUNT];
 };
 #endif

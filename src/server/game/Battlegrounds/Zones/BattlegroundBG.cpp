@@ -61,6 +61,7 @@ void BattlegroundBG::PostUpdateImpl(uint32 diff)
                 else
                 {
                     m_BannerTimers[node].timer = 0;
+                    // Change from contested to occupied
                     _CreateBanner(node, m_BannerTimers[node].type, m_BannerTimers[node].teamIndex, false);
                 }
             }
@@ -146,9 +147,10 @@ void BattlegroundBG::PostUpdateImpl(uint32 diff)
                     UpdateWorldState(BG_BG_OP_RESOURCES_HORDE, m_TeamScores[team]);
                 // update achievement flags
                 // we increased m_TeamScores[team] so we just need to check if it is 500 more than other teams resources
+                // Don't Get Cocky Kid
                 uint8 otherTeam = (team + 1) % BG_TEAMS_COUNT;
                 if (m_TeamScores[team] > m_TeamScores[otherTeam] + 500)
-                    m_TeamScores500Disadvantage[otherTeam] = true;
+                    dontGetCockyKid[otherTeam] = true;
             }
         }
 
@@ -421,6 +423,7 @@ void BattlegroundBG::EventPlayerClickedOnFlag(Player* source, GameObject* /*targ
 
     source->RemoveAurasWithInterruptFlags(AURA_INTERRUPT_FLAG_ENTER_PVP_COMBAT);
     uint32 sound = 0;
+
     // If node is neutral, change to contested
     if (m_Nodes[node] == BG_BG_NODE_TYPE_NEUTRAL)
     {
@@ -540,6 +543,15 @@ uint32 BattlegroundBG::GetPrematureWinner()
     return Battleground::GetPrematureWinner();
 }
 
+
+uint32 BattlegroundBG::GetSecondTeam(uint32 team) const
+{
+    if (team == TEAM_ALLIANCE)
+        return TEAM_HORDE;
+    else
+        return TEAM_ALLIANCE;
+}
+
 bool BattlegroundBG::SetupBattleground()
 {
     for (int i = 0; i < BG_BG_DYNAMIC_NODES_COUNT; ++i)
@@ -558,8 +570,8 @@ bool BattlegroundBG::SetupBattleground()
             return false;
         }
     }
-    if (!AddObject(BG_BG_OBJECT_GATE_A, BG_BG_OBJECTID_GATE_A, BG_BG_DoorPositions[0][0], BG_BG_DoorPositions[0][1], BG_BG_DoorPositions[0][2], BG_BG_DoorPositions[0][3], BG_BG_DoorPositions[0][4], BG_BG_DoorPositions[0][5], BG_BG_DoorPositions[0][6], BG_BG_DoorPositions[0][7], RESPAWN_IMMEDIATELY)
-        || !AddObject(BG_BG_OBJECT_GATE_H, BG_BG_OBJECTID_GATE_H, BG_BG_DoorPositions[1][0], BG_BG_DoorPositions[1][1], BG_BG_DoorPositions[1][2], BG_BG_DoorPositions[1][3], BG_BG_DoorPositions[1][4], BG_BG_DoorPositions[1][5], BG_BG_DoorPositions[1][6], BG_BG_DoorPositions[1][7], RESPAWN_IMMEDIATELY)
+    if (!AddObject(BG_BG_OBJECT_GATE_A, BG_BG_OBJECTID_GATE_A_1, BG_BG_DoorPositions[0][0], BG_BG_DoorPositions[0][1], BG_BG_DoorPositions[0][2], BG_BG_DoorPositions[0][3], BG_BG_DoorPositions[0][4], BG_BG_DoorPositions[0][5], BG_BG_DoorPositions[0][6], BG_BG_DoorPositions[0][7], RESPAWN_IMMEDIATELY)
+        || !AddObject(BG_BG_OBJECT_GATE_H, BG_BG_OBJECTID_GATE_H_1, BG_BG_DoorPositions[1][0], BG_BG_DoorPositions[1][1], BG_BG_DoorPositions[1][2], BG_BG_DoorPositions[1][3], BG_BG_DoorPositions[1][4], BG_BG_DoorPositions[1][5], BG_BG_DoorPositions[1][6], BG_BG_DoorPositions[1][7], RESPAWN_IMMEDIATELY)
 )
     {
         TC_LOG_ERROR(LOG_FILTER_SQL, "BatteGroundBG: Failed to spawn door object Battleground not created!");
@@ -591,12 +603,12 @@ void BattlegroundBG::Reset()
     m_HonorScoreTics[TEAM_HORDE]         = 0;
     m_ReputationScoreTics[TEAM_ALLIANCE] = 0;
     m_ReputationScoreTics[TEAM_HORDE]    = 0;
-    m_IsInformedNearVictory                 = false;
+    m_IsInformedNearVictory              = false;
     bool isBGWeekend = sBattlegroundMgr->IsBGWeekend(GetTypeID());
     m_HonorTics = (isBGWeekend) ? BG_BG_BGBGWeekendHonorTicks : BG_BG_NotBGBGWeekendHonorTicks;
     m_ReputationTics = (isBGWeekend) ? BG_BG_BGBGWeekendReputationTicks : BG_BG_NotBGBGWeekendReputationTicks;
-    m_TeamScores500Disadvantage[TEAM_ALLIANCE] = false;
-    m_TeamScores500Disadvantage[TEAM_HORDE]    = false;
+    dontGetCockyKid[TEAM_ALLIANCE]       = false;
+    dontGetCockyKid[TEAM_HORDE]          = false;
 
     for (uint8 i = 0; i < BG_BG_DYNAMIC_NODES_COUNT; ++i)
     {
@@ -692,6 +704,24 @@ bool BattlegroundBG::IsAllNodesConrolledByTeam(uint32 team) const
     for (int i = 0; i < BG_BG_DYNAMIC_NODES_COUNT; ++i)
         if ((team == ALLIANCE && m_Nodes[i] == BG_BG_NODE_STATUS_ALLY_OCCUPIED) ||
             (team == HORDE    && m_Nodes[i] == BG_BG_NODE_STATUS_HORDE_OCCUPIED))
+            ++count;
+
+    return count == BG_BG_DYNAMIC_NODES_COUNT;
+}
+
+bool BattlegroundBG::IsJuggerNotEligible(uint8 team) const
+{
+    if (m_TeamScores[team] == BG_BG_MAX_TEAM_SCORE && m_TeamScores[GetSecondTeam(team)] == BG_BG_MAX_TEAM_SCORE - 10.0f)
+        return true;
+
+    return false;
+}
+
+bool BattlegroundBG::IsFullCoverageEligible(uint8 team) const
+{
+    uint32 count = 0;
+    for (uint8 n = 0; n < BG_BG_DYNAMIC_NODES_COUNT; ++n)
+        if (m_nodeInfo[n].bannerType == (n * 8 + team + 1))
             ++count;
 
     return count == BG_BG_DYNAMIC_NODES_COUNT;

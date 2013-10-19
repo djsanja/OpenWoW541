@@ -27,7 +27,8 @@ enum BG_TP_TimerOrScore
     BG_TP_FLAG_RESPAWN_TIME = 23000,
     BG_TP_FLAG_DROP_TIME    = 10000,
     BG_TP_SPELL_FORCE_TIME  = 600000,
-    BG_TP_SPELL_BRUTAL_TIME = 900000
+    BG_TP_SPELL_BRUTAL_TIME = 900000,
+    END_TIMER               = 1500000
 };
 
 enum BG_TP_Sound
@@ -73,55 +74,53 @@ enum BG_TP_ObjectTypes
     BG_TP_OBJECT_DOOR_A_2       = 1,
     BG_TP_OBJECT_DOOR_A_3       = 2,
     BG_TP_OBJECT_DOOR_A_4       = 3,
-    BG_TP_OBJECT_DOOR_A_5       = 4,
-    BG_TP_OBJECT_DOOR_A_6       = 5,
-    BG_TP_OBJECT_DOOR_H_1       = 6,
-    BG_TP_OBJECT_DOOR_H_2       = 7,
-    BG_TP_OBJECT_DOOR_H_3       = 8,
-    BG_TP_OBJECT_DOOR_H_4       = 9,
-    BG_TP_OBJECT_A_FLAG         = 10,
-    BG_TP_OBJECT_H_FLAG         = 11,
-    BG_TP_OBJECT_SPEEDBUFF_1    = 12,
-    BG_TP_OBJECT_SPEEDBUFF_2    = 13,
-    BG_TP_OBJECT_REGENBUFF_1    = 14,
-    BG_TP_OBJECT_REGENBUFF_2    = 15,
-    BG_TP_OBJECT_BERSERKBUFF_1  = 16,
-    BG_TP_OBJECT_BERSERKBUFF_2  = 17,
-    BG_TP_OBJECT_MAX            = 18
+    BG_TP_OBJECT_DOOR_H_1       = 4,
+    BG_TP_OBJECT_DOOR_H_2       = 5,
+    BG_TP_OBJECT_DOOR_H_3       = 6,
+    BG_TP_OBJECT_DOOR_H_4       = 7,
+    BG_TP_OBJECT_A_FLAG         = 8,
+    BG_TP_OBJECT_H_FLAG         = 9,
+    BG_TP_OBJECT_SPEEDBUFF_1    = 10,
+    BG_TP_OBJECT_SPEEDBUFF_2    = 11,
+    BG_TP_OBJECT_REGENBUFF_1    = 12,
+    BG_TP_OBJECT_REGENBUFF_2    = 13,
+    BG_TP_OBJECT_BERSERKBUFF_1  = 14,
+    BG_TP_OBJECT_BERSERKBUFF_2  = 15,
+    BG_TP_OBJECT_MAX            = 16
 };
 
 enum BG_TP_ObjectEntry
 {
-    BG_OBJECT_DOOR_A_1_TP_ENTRY          = 179918,
-    BG_OBJECT_DOOR_A_2_TP_ENTRY          = 179919,
-    BG_OBJECT_DOOR_A_3_TP_ENTRY          = 179920,
-    BG_OBJECT_DOOR_A_4_TP_ENTRY          = 179921,
-    BG_OBJECT_DOOR_A_5_TP_ENTRY          = 180322,
-    BG_OBJECT_DOOR_A_6_TP_ENTRY          = 180322,
-    BG_OBJECT_DOOR_H_1_TP_ENTRY          = 179916,
-    BG_OBJECT_DOOR_H_2_TP_ENTRY          = 179917,
-    BG_OBJECT_DOOR_H_3_TP_ENTRY          = 180322,
-    BG_OBJECT_DOOR_H_4_TP_ENTRY          = 180322,
-    BG_OBJECT_A_FLAG_TP_ENTRY            = 179830,
-    BG_OBJECT_H_FLAG_TP_ENTRY            = 179831,
-    BG_OBJECT_A_FLAG_GROUND_TP_ENTRY     = 179785,
-    BG_OBJECT_H_FLAG_GROUND_TP_ENTRY     = 179786
+    BG_OBJECT_DOOR_A_1_TP_ENTRY      = 206655,
+    BG_OBJECT_DOOR_A_2_TP_ENTRY      = 206654,
+    BG_OBJECT_DOOR_A_3_TP_ENTRY      = 206653,
+    BG_OBJECT_DOOR_A_4_TP_ENTRY      = 206653,
+    BG_OBJECT_DOOR_H_1_TP_ENTRY      = 208205,
+    BG_OBJECT_DOOR_H_2_TP_ENTRY      = 208206,
+    BG_OBJECT_DOOR_H_3_TP_ENTRY      = 208207,
+    BG_OBJECT_DOOR_H_4_TP_ENTRY      = 208207,
+    BG_OBJECT_A_FLAG_TP_ENTRY        = 179830,
+    BG_OBJECT_H_FLAG_TP_ENTRY        = 179831,
+    BG_OBJECT_A_FLAG_GROUND_TP_ENTRY = 179785,
+    BG_OBJECT_H_FLAG_GROUND_TP_ENTRY = 179786,
 };
 
 enum BG_TP_FlagState
 {
-    BG_TP_FLAG_STATE_ON_BASE      = 0,
-    BG_TP_FLAG_STATE_WAIT_RESPAWN = 1,
-    BG_TP_FLAG_STATE_ON_PLAYER    = 2,
-    BG_TP_FLAG_STATE_ON_GROUND    = 3
+    BG_TP_FLAG_STATE_ON_BASE       = 0,
+    BG_TP_FLAG_STATE_WAIT_RESPAWN  = 1,
+    BG_TP_FLAG_STATE_ON_PLAYER     = 2,
+    BG_TP_FLAG_STATE_ON_GROUND     = 3
 };
 
 enum BG_TP_Graveyards
 {
-    TP_GRAVEYARD_FLAGROOM_ALLIANCE = 1726,
-    TP_GRAVEYARD_FLAGROOM_HORDE    = 1727,
-    TP_GRAVEYARD_MAIN_ALLIANCE     = 1729,
-    TP_GRAVEYARD_MAIN_HORDE        = 1728
+    TP_GRAVEYARD_MAIN_ALLIANCE     = 1726,
+    TP_GRAVEYARD_MAIN_HORDE        = 1727,
+    TP_GRAVEYARD_START_ALLIANCE    = 1729,
+    TP_GRAVEYARD_START_HORDE       = 1728,
+    TP_GRAVEYARD_MIDDLE_ALLIANCE   = 1749,
+    TP_GRAVEYARD_MIDDLE_HORDE      = 1750
 };
 
 enum BG_TP_CreatureTypes
@@ -140,8 +139,8 @@ enum BG_TP_CarrierDebuffs
 
 enum BG_TP_Objectives
 {
-    TP_OBJECTIVE_CAPTURE_FLAG   = 42,
-    TP_OBJECTIVE_RETURN_FLAG    = 44
+    TP_OBJECTIVE_CAPTURE_FLAG   = 290,
+    TP_OBJECTIVE_RETURN_FLAG    = 291
 };
 
 #define TP_EVENT_START_BATTLE   8563
@@ -180,6 +179,7 @@ class BattlegroundTP : public Battleground
         void RespawnFlag(uint32 Team, bool captured);
         void RespawnFlagAfterDrop(uint32 Team);
         uint8 GetFlagState(uint32 team)             { return _flagState[GetTeamIndexByTeamId(team)]; }
+        uint32 GetSecondTeam(uint32 team) const;
 
         /* Battleground Events */
         void EventPlayerDroppedFlag(Player* Source);
@@ -212,7 +212,13 @@ class BattlegroundTP : public Battleground
         void SetTeamPoint(uint32 TeamID, uint32 Points = 0) { m_TeamScores[GetTeamIndexByTeamId(TeamID)] = Points; }
         void RemovePoint(uint32 TeamID, uint32 Points = 1)  { m_TeamScores[GetTeamIndexByTeamId(TeamID)] -= Points; }
 
+
+        bool IsDoubleJeopardyEligible(Player* const player) const;
+        bool IsTwinPeaksPerfectionEligible(Player* const player) const;
+        bool HandlePlayerUnderMap(Player* /*plr*/);
+
         uint32 GetPrematureWinner();
+
     private:
         uint64 m_FlagKeepers[2];                            // 0 - alliance, 1 - horde
         uint64 m_DroppedFlagGUID[2];
@@ -230,5 +236,7 @@ class BattlegroundTP : public Battleground
         uint8 _minutesElapsed;
 
         void PostUpdateImpl(uint32 diff);
+
+        std::list<uint32> scoreList;
 };
 #endif

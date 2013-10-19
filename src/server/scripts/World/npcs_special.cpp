@@ -1222,6 +1222,11 @@ public:
                     player->SEND_GOSSIP_MENU(10239, creature->GetGUID());
                 else canBuy = true;
                 break;
+            case 48510:                                          //Kall Worthaton
+                if (player->GetReputationRank(1133) != REP_EXALTED && race != RACE_GOBLIN)
+                    player->SEND_GOSSIP_MENU(5840, creature->GetGUID());
+                else canBuy = true;
+                break; 
         }
 
         if (canBuy)

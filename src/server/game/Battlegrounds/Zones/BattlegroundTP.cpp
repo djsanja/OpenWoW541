@@ -195,7 +195,7 @@ void BattlegroundTP::StartingEventCloseDoors()
 
 void BattlegroundTP::StartingEventOpenDoors()
 {
-    for (uint32 i = BG_TP_OBJECT_DOOR_A_1; i <= BG_TP_OBJECT_DOOR_A_6; ++i)
+    for (uint32 i = BG_TP_OBJECT_DOOR_A_1; i <= BG_TP_OBJECT_DOOR_A_4; ++i)
         DoorOpen(i);
     for (uint32 i = BG_TP_OBJECT_DOOR_H_1; i <= BG_TP_OBJECT_DOOR_H_4; ++i)
         DoorOpen(i);
@@ -203,8 +203,8 @@ void BattlegroundTP::StartingEventOpenDoors()
     for (uint32 i = BG_TP_OBJECT_A_FLAG; i <= BG_TP_OBJECT_BERSERKBUFF_2; ++i)
         SpawnBGObject(i, RESPAWN_IMMEDIATELY);
 
-    SpawnBGObject(BG_TP_OBJECT_DOOR_A_5, RESPAWN_ONE_DAY);
-    SpawnBGObject(BG_TP_OBJECT_DOOR_A_6, RESPAWN_ONE_DAY);
+    SpawnBGObject(BG_TP_OBJECT_DOOR_A_3, RESPAWN_ONE_DAY);
+    SpawnBGObject(BG_TP_OBJECT_DOOR_A_4, RESPAWN_ONE_DAY);
     SpawnBGObject(BG_TP_OBJECT_DOOR_H_3, RESPAWN_ONE_DAY);
     SpawnBGObject(BG_TP_OBJECT_DOOR_H_4, RESPAWN_ONE_DAY);
 
@@ -666,8 +666,6 @@ bool BattlegroundTP::SetupBattleground()
         || !AddObject(BG_TP_OBJECT_DOOR_A_2, BG_OBJECT_DOOR_A_2_TP_ENTRY, 1492.478f, 1457.912f, 342.9689f, 3.115414f, 0, 0, 0.9999143f, 0.01308903f, RESPAWN_IMMEDIATELY)
         || !AddObject(BG_TP_OBJECT_DOOR_A_3, BG_OBJECT_DOOR_A_3_TP_ENTRY, 1468.503f, 1494.357f, 351.8618f, 3.115414f, 0, 0, 0.9999143f, 0.01308903f, RESPAWN_IMMEDIATELY)
         || !AddObject(BG_TP_OBJECT_DOOR_A_4, BG_OBJECT_DOOR_A_4_TP_ENTRY, 1471.555f, 1458.778f, 362.6332f, 3.115414f, 0, 0, 0.9999143f, 0.01308903f, RESPAWN_IMMEDIATELY)
-        || !AddObject(BG_TP_OBJECT_DOOR_A_5, BG_OBJECT_DOOR_A_5_TP_ENTRY, 1492.347f, 1458.34f, 342.3712f, -0.03490669f, 0, 0, 0.01745246f, -0.9998477f, RESPAWN_IMMEDIATELY)
-        || !AddObject(BG_TP_OBJECT_DOOR_A_6, BG_OBJECT_DOOR_A_6_TP_ENTRY, 1503.466f, 1493.367f, 351.7352f, -0.03490669f, 0, 0, 0.01745246f, -0.9998477f, RESPAWN_IMMEDIATELY)
         // horde gates
         || !AddObject(BG_TP_OBJECT_DOOR_H_1, BG_OBJECT_DOOR_H_1_TP_ENTRY, 949.1663f, 1423.772f, 345.6241f, -0.5756807f, -0.01673368f, -0.004956111f, -0.2839723f, 0.9586737f, RESPAWN_IMMEDIATELY)
         || !AddObject(BG_TP_OBJECT_DOOR_H_2, BG_OBJECT_DOOR_H_2_TP_ENTRY, 953.0507f, 1459.842f, 340.6526f, -1.99662f, -0.1971825f, 0.1575096f, -0.8239487f, 0.5073641f, RESPAWN_IMMEDIATELY)
@@ -793,14 +791,14 @@ WorldSafeLocsEntry const* BattlegroundTP::GetClosestGraveYard(Player* player)
         if (GetStatus() == STATUS_IN_PROGRESS)
             return sWorldSafeLocsStore.LookupEntry(TP_GRAVEYARD_MAIN_ALLIANCE);
         else
-            return sWorldSafeLocsStore.LookupEntry(TP_GRAVEYARD_FLAGROOM_ALLIANCE);
+            return sWorldSafeLocsStore.LookupEntry(TP_GRAVEYARD_MAIN_ALLIANCE);
     }
     else
     {
         if (GetStatus() == STATUS_IN_PROGRESS)
             return sWorldSafeLocsStore.LookupEntry(TP_GRAVEYARD_MAIN_HORDE);
         else
-            return sWorldSafeLocsStore.LookupEntry(TP_GRAVEYARD_FLAGROOM_HORDE);
+            return sWorldSafeLocsStore.LookupEntry(TP_GRAVEYARD_MAIN_HORDE);
     }
 }
 
@@ -852,4 +850,51 @@ uint32 BattlegroundTP::GetPrematureWinner()
         return HORDE;
 
     return Battleground::GetPrematureWinner();
+}
+
+uint32 BattlegroundTP::GetSecondTeam(uint32 team) const
+{
+    if (team == TEAM_ALLIANCE)
+        return TEAM_HORDE;
+    else
+        return TEAM_ALLIANCE;
+}
+
+bool BattlegroundTP::IsDoubleJeopardyEligible(Player* const player) const
+{
+    if (!player)
+        return false;
+
+    // Score must be 3 : 2
+    if (GetTeamScore(player->GetTeamId()) != 3 || GetTeamScore(GetSecondTeam(player->GetTeamId())) != 2)
+        return false;
+
+    // Last three captures must be done by winner's team
+    uint8 n = 0;
+    for (std::list<uint32>::const_iterator itr = scoreList.begin(); n < 3; ++itr, ++n)
+        if (*itr != player->GetTeamId())
+            return false;
+
+    return true;
+}
+
+bool BattlegroundTP::IsTwinPeaksPerfectionEligible(Player* const player) const
+{
+    if (!player)
+        return false;
+
+    BattlegroundScoreMap::const_iterator itr = PlayerScores.find(player->GetGUID());
+    if (itr == PlayerScores.end())
+        return false;
+
+    // Score must be 3 : 0
+    if (GetTeamScore(player->GetTeamId()) != 3 || GetTeamScore(GetSecondTeam(player->GetTeamId())) != 0)
+        return false;
+
+    // At least one killing blow
+    BattlegroundTPScore const* const score = (BattlegroundTPScore*)itr->second;
+    if (score->KillingBlows == 0 || score->Deaths != 0)
+        return false;
+
+    return true;
 }

@@ -344,6 +344,104 @@ class achievement_flirt_with_disaster_perf_check : public AchievementCriteriaScr
         }
 };
 
+class achievement_bg_bog_jugger_not : public AchievementCriteriaScript
+{
+   public:
+       achievement_bg_bog_jugger_not() : AchievementCriteriaScript("achievement_bg_bg_jugger_not")
+       {
+       }
+
+       bool OnCheck(Player* player, Unit* /*target*/)
+       {
+           if (player->GetBattlegroundTypeId() != BATTLEGROUND_BG || !player->GetBattleground())
+               return false;
+
+           BattlegroundBG const* const battleground = static_cast<BattlegroundBG*>(player->GetBattleground());
+           if (battleground->IsJuggerNotEligible(player->GetTeamId()))
+               return true;
+
+           return false;
+       }
+};
+
+class achievement_bg_bog_dont_get_cocky_kid : public AchievementCriteriaScript
+{
+   public:
+       achievement_bg_bog_dont_get_cocky_kid() : AchievementCriteriaScript("achievement_bg_bg_dont_get_cocky_kid")
+       {
+       }
+
+       bool OnCheck(Player* player, Unit* /*target*/)
+       {
+           if (player->GetBattlegroundTypeId() != BATTLEGROUND_BG || !player->GetBattleground())
+               return false;
+
+           BattlegroundBG const* const battleground = static_cast<BattlegroundBG*>(player->GetBattleground());
+           if (battleground->IsDontGetCockyKidEligible(player->GetTeamId()))
+               return true;
+
+           return false;
+       }
+};
+
+class achievement_bg_bog_full_coverage : public AchievementCriteriaScript
+{
+   public:
+       achievement_bg_bog_full_coverage() : AchievementCriteriaScript("achievement_bg_bg_full_coverage")
+       {
+       }
+
+       bool OnCheck(Player* player, Unit* /*target*/)
+       {
+           if (player->GetBattlegroundTypeId() != BATTLEGROUND_BG || !player->GetBattleground())
+               return false;
+
+           BattlegroundBG const* const battleground = static_cast<BattlegroundBG*>(player->GetBattleground());
+           if (battleground->IsFullCoverageEligible(player->GetTeamId()))
+               return true;
+
+           return false;
+       }
+};
+
+class achievement_bg_tp_twin_peaks_perfection : public AchievementCriteriaScript
+{
+   public:
+       achievement_bg_tp_twin_peaks_perfection() : AchievementCriteriaScript("achievement_bg_tp_twin_peaks_perfection") { }
+
+       bool OnCheck(Player* player, Unit* /*target*/)
+       {
+           if (player->GetBattlegroundTypeId() != BATTLEGROUND_TP || !player->GetBattleground())
+               return false;
+
+           BattlegroundTP const* const battleground = static_cast<BattlegroundTP*>(player->GetBattleground());
+           if (battleground->IsTwinPeaksPerfectionEligible(player))
+               return true;
+
+           return false;
+       }
+};
+
+class achievement_bg_tp_double_jeopardy : public AchievementCriteriaScript
+{
+   public:
+       achievement_bg_tp_double_jeopardy() : AchievementCriteriaScript("achievement_bg_tp_double_jeopardy")
+       {
+       }
+
+       bool OnCheck(Player* player, Unit* /*target*/)
+       {
+           if (player->GetBattlegroundTypeId() != BATTLEGROUND_TP || !player->GetBattleground())
+               return false;
+
+           BattlegroundTP const* const battleground = static_cast<BattlegroundTP*>(player->GetBattleground());
+           if (battleground->IsDoubleJeopardyEligible(player))
+               return true;
+
+           return false;
+       }
+};
+
 void AddSC_achievement_scripts()
 {
     new achievement_resilient_victory();
@@ -353,6 +451,11 @@ void AddSC_achievement_scripts()
     new achievement_bg_ic_glaive_grave();
     new achievement_bg_ic_mowed_down();
     new achievement_bg_sa_artillery();
+    new achievement_bg_bog_jugger_not();
+    new achievement_bg_bog_dont_get_cocky_kid();
+    new achievement_bg_bog_full_coverage();
+    new achievement_bg_tp_twin_peaks_perfection();
+    new achievement_bg_tp_double_jeopardy();
     new achievement_sickly_gazelle();
     new achievement_everything_counts();
     new achievement_bg_av_perfection();
