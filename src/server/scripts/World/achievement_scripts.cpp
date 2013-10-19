@@ -442,6 +442,284 @@ class achievement_bg_tp_double_jeopardy : public AchievementCriteriaScript
        }
 };
 
+//BG TK
+//Four Square
+//Hold all four Orbs of Power at least once in a single Temple of Kotmogu battle.
+class achievement_bg_tk_four_square : public AchievementCriteriaScript
+{
+    public:
+        achievement_bg_tk_four_square() : AchievementCriteriaScript("achievement_bg_tk_four_square") 
+		{
+		}
+
+		bool OnCheck(Player* player, Unit* /*target*/)
+        {
+           if (player->GetBattlegroundTypeId() != BATTLEGROUND_TK || !player->GetBattleground())
+			   return false;
+		   
+		   BattlegroundTK const* const battleground = static_cast<BattlegroundTK*>(player->GetBattleground());
+           //TODO
+		   //if (battleground->IsFourSquareEligible(player))
+           //    return true;
+
+           return false;
+		}
+};
+
+//I've Got the Power
+//Win Temple of Kotmogu while controlling all 4 Orbs of Power.
+class achievement_bg_tk_got_the_power : public AchievementCriteriaScript
+{
+    public:
+        achievement_bg_tk_got_the_power() : AchievementCriteriaScript("achievement_bg_tk_got_the_power") 
+		{
+		}
+
+		bool OnCheck(Player* player, Unit* /*target*/)
+        {
+           if (player->GetBattlegroundTypeId() != BATTLEGROUND_TK || !player->GetBattleground())
+			   return false;
+		   
+		   BattlegroundTK const* const battleground = static_cast<BattlegroundTK*>(player->GetBattleground());
+           //TODO
+		   //if (battleground->IsGotThePowerEligible(player))
+           //    return true;
+
+           return false;
+		}
+};
+
+//Powerball
+//Hold an Orb of Power in the center of the Temple of Kotmogu for 90 seconds.
+class achievement_bg_tk_powerball : public AchievementCriteriaScript
+{
+    public:
+        achievement_bg_tk_powerball() : AchievementCriteriaScript("achievement_bg_tk_powerball") 
+		{
+		}
+
+		bool OnCheck(Player* player, Unit* /*target*/)
+        {
+           if (player->GetBattlegroundTypeId() != BATTLEGROUND_TK || !player->GetBattleground())
+			   return false;
+		   
+		   BattlegroundTK const* const battleground = static_cast<BattlegroundTK*>(player->GetBattleground());
+           //TODO
+		   //if (battleground->IsPowerballEligible(player))
+           //    return true;
+
+           return false;
+		}
+};
+
+//Temple of Kotmogu All-Star
+//Hold four Orbs of Power and kill four enemies who are holding an Orb of Power in a single Temple of Kotmogu match.
+class achievement_bg_tk_allstar : public AchievementCriteriaScript
+{
+    public:
+        achievement_bg_tk_allstar() : AchievementCriteriaScript("achievement_bg_tk_allstar") 
+		{
+		}
+
+		bool OnCheck(Player* player, Unit* /*target*/)
+        {
+           if (player->GetBattlegroundTypeId() != BATTLEGROUND_TK || !player->GetBattleground())
+			   return false;
+		   
+		   BattlegroundTK const* const battleground = static_cast<BattlegroundTK*>(player->GetBattleground());
+           //TODO
+		   //if (battleground->IsTkAllstarEligible(player))
+           //    return true;
+
+           return false;
+		}
+};
+
+//BG SM
+//End of the Line
+//Seize control of a mine cart that is controlled by the opposing team within 20 yards of the depot, and then capture it.
+class achievement_bg_sm_end_of_the_line : public AchievementCriteriaScript
+{
+    public:
+        achievement_bg_sm_end_of_the_line() : AchievementCriteriaScript("achievement_bg_sm_end_of_the_line") 
+		{
+		}
+
+		bool OnCheck(Player* player, Unit* /*target*/)
+        {
+           if (player->GetBattlegroundTypeId() != BATTLEGROUND_SM || !player->GetBattleground())
+			   return false;
+		   
+		   BattlegroundSM const* const battleground = static_cast<BattlegroundSM*>(player->GetBattleground());
+           //TODO
+		   //if (battleground->IsEndOfTheLineEligible(player))
+           //    return true;
+
+           return false;
+		}
+};
+
+//Five for Five
+//Capture five mine carts in a single Silvershard Mines battle without dying.
+class achievement_bg_sm_five_for_five : public AchievementCriteriaScript
+{
+    public:
+        achievement_bg_sm_five_for_five() : AchievementCriteriaScript("achievement_bg_sm_five_for_five") 
+		{
+		}
+
+		bool OnCheck(Player* player, Unit* /*target*/)
+        {
+           if (player->GetBattlegroundTypeId() != BATTLEGROUND_SM || !player->GetBattleground())
+			   return false;
+		   
+		   BattlegroundSM const* const battleground = static_cast<BattlegroundSM*>(player->GetBattleground());
+           //TODO
+		   //if (battleground->IsFiveForFiveEligible(player))
+           //    return true;
+
+           return false;
+		}
+};
+
+//Mine Cart Courier
+//Capture a mine cart using each of the 5 sets of tracks in a single Silvershard Mines match.
+class achievement_bg_sm_mine_cart_courier : public AchievementCriteriaScript
+{
+    public:
+        achievement_bg_sm_mine_cart_courier() : AchievementCriteriaScript("achievement_bg_sm_mine_cart_courier") 
+		{
+		}
+
+		bool OnCheck(Player* player, Unit* /*target*/)
+        {
+           if (player->GetBattlegroundTypeId() != BATTLEGROUND_SM || !player->GetBattleground())
+			   return false;
+		   
+		   BattlegroundSM const* const battleground = static_cast<BattlegroundSM*>(player->GetBattleground());
+           //TODO
+		   //if (battleground->IsCartCourierEligible(player))
+           //    return true;
+
+           return false;
+		}
+};
+
+//My Diamonds and Your Rust
+//Win a Silvershard Mines battle without letting the enemy team capture a mine cart.
+class achievement_bg_sm_diamonds_for_rust : public AchievementCriteriaScript
+{
+   public:
+        achievement_bg_sm_diamonds_for_rust() : AchievementCriteriaScript("achievement_bg_sm_diamonds_for_rust") 
+		{
+		}
+
+		bool OnCheck(Player* player, Unit* /*target*/)
+        {
+           if (player->GetBattlegroundTypeId() != BATTLEGROUND_SM || !player->GetBattleground())
+			   return false;
+		   
+		   BattlegroundSM const* const battleground = static_cast<BattlegroundSM*>(player->GetBattleground());
+           //TODO
+		   //if (battleground->IsDiamondForRustEligible(player))
+           //    return true;
+
+           return false;
+		}
+};
+
+//BG DG
+//Capping Spree
+//Personally capture the enemy mine cart 4 times in a single Deepwind Gorge battleground.
+class achievement_bg_dg_capping_spree : public AchievementCriteriaScript
+{
+    public:
+        achievement_bg_dg_capping_spree() : AchievementCriteriaScript("achievement_bg_dg_capping_spree") 
+		{
+		}
+
+		bool OnCheck(Player* player, Unit* /*target*/)
+        {
+           if (player->GetBattlegroundTypeId() != BATTLEGROUND_DG || !player->GetBattleground())
+			   return false;
+		   
+		   BattlegroundDG const* const battleground = static_cast<BattlegroundDG*>(player->GetBattleground());
+           //TODO
+		   //if (battleground->IsCappingSpreeEligible(player))
+           //    return true;
+
+           return false;
+		}
+};
+
+//Deepwind Gorge All-Star
+//Assault a mine, Defend a mine, Capture a mine cart and Return a mine cart in a single Deepwind Gorge match.
+class achievement_bg_dg_allstar : public AchievementCriteriaScript
+{
+    public:
+        achievement_bg_dg_allstar() : AchievementCriteriaScript("achievement_bg_dg_allstar") 
+		{
+		}
+
+		bool OnCheck(Player* player, Unit* /*target*/)
+        {
+           if (player->GetBattlegroundTypeId() != BATTLEGROUND_DG || !player->GetBattleground())
+			   return false;
+		   
+		   BattlegroundDG const* const battleground = static_cast<BattlegroundDG*>(player->GetBattleground());
+           //TODO
+		   //if (battleground->IsDgAllstarEligible(player))
+           //    return true;
+
+           return false;
+		}
+};
+
+//Deepwind Gorge Perfection
+//Win Deepwind Gorge with a score of 1600 to 0.
+class achievement_bg_dg_perfection : public AchievementCriteriaScript
+{
+    public:
+        achievement_bg_dg_perfection() : AchievementCriteriaScript("achievement_bg_dg_perfection") 
+		{
+		}
+
+		bool OnCheck(Player* player, Unit* /*target*/)
+        {
+           if (player->GetBattlegroundTypeId() != BATTLEGROUND_DG || !player->GetBattleground())
+			   return false;
+		   
+		   BattlegroundDG const* const battleground = static_cast<BattlegroundDG*>(player->GetBattleground());
+           //TODO
+		   //if (battleground->IsDgPerfectionEligible(player))
+           //    return true;
+
+           return false;
+		}
+};
+
+//Puddle Jumper
+//Fall 25 yards without dying in Deepwind Gorge.
+class achievement_bg_dg_puddle_jumper : public AchievementCriteriaScript
+{
+    public:
+        achievement_bg_dg_puddle_jumper() : AchievementCriteriaScript("achievement_bg_dg_puddle_jumper") 
+		{
+		}
+
+		bool OnCheck(Player* player, Unit* /*target*/)
+        {
+           if (player->GetBattlegroundTypeId() != BATTLEGROUND_DG || !player->GetBattleground())
+			   return false;
+		   
+		   BattlegroundDG const* const battleground = static_cast<BattlegroundDG*>(player->GetBattleground());
+           //TODO
+		   //if (battleground->IsPuddleJumperEligible(player))
+           //    return true;
+
+           return false;
+		}
+};
 void AddSC_achievement_scripts()
 {
     new achievement_resilient_victory();
@@ -466,4 +744,17 @@ void AddSC_achievement_scripts()
     new achievement_tilted();
     new achievement_not_even_a_scratch();
     new achievement_flirt_with_disaster_perf_check();
+    //TODO SCRIPT NEW BG
+    new achievement_bg_tk_four_square();
+    new achievement_bg_tk_got_the_power();
+    new achievement_bg_tk_powerball();
+    new achievement_bg_tk_allstar();
+    new achievement_bg_sm_end_of_the_line();
+    new achievement_bg_sm_five_for_five();
+    new achievement_bg_sm_mine_cart_courier();
+    new achievement_bg_sm_diamonds_for_rust();
+    new achievement_bg_dg_capping_spree();
+    new achievement_bg_dg_allstar();
+    new achievement_bg_dg_perfection();
+    new achievement_bg_dg_puddle_jumper();
 }
