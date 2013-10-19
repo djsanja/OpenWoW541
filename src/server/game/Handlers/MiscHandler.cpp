@@ -1149,14 +1149,16 @@ void WorldSession::HandleSetActionButtonOpcode(WorldPacket& recvData)
     ObjectGuid guid;
     uint8 slotId;
 
-    guid[4] = recvData.ReadBit();
+    recvData >> slotId;
+
     guid[1] = recvData.ReadBit();
-    guid[0] = recvData.ReadBit();
-    guid[5] = recvData.ReadBit();
-    guid[6] = recvData.ReadBit();
-    guid[3] = recvData.ReadBit();
     guid[7] = recvData.ReadBit();
+    guid[6] = recvData.ReadBit();
+    guid[5] = recvData.ReadBit();
     guid[2] = recvData.ReadBit();
+    guid[4] = recvData.ReadBit();
+    guid[0] = recvData.ReadBit();
+    guid[3] = recvData.ReadBit();
 
     recvData.ReadByteSeq(guid[2]);
     recvData.ReadByteSeq(guid[7]);
@@ -1167,7 +1169,7 @@ void WorldSession::HandleSetActionButtonOpcode(WorldPacket& recvData)
     recvData.ReadByteSeq(guid[3]);
     recvData.ReadByteSeq(guid[6]);
 
-	recvData >> slotId;
+	
     ActionButtonPACKET* button = (ActionButtonPACKET*)&guid;
 
     TC_LOG_DEBUG(LOG_FILTER_NETWORKIO, "CMSG_SET_ACTION_BUTTON slotId: %u actionId: %u", slotId, button->id);
