@@ -698,7 +698,7 @@ void BattlegroundBG::UpdatePlayerScore(Player* Source, uint32 type, uint32 value
     }
 }
 
-bool BattlegroundBG::IsAllNodesConrolledByTeam(uint32 team) const
+bool BattlegroundBG::IsFullCoverageEligible(uint32 team) const
 {
     uint32 count = 0;
     for (int i = 0; i < BG_BG_DYNAMIC_NODES_COUNT; ++i)
@@ -715,14 +715,4 @@ bool BattlegroundBG::IsJuggerNotEligible(uint8 team) const
         return true;
 
     return false;
-}
-
-bool BattlegroundBG::IsFullCoverageEligible(uint8 team) const
-{
-    uint32 count = 0;
-    for (uint8 n = 0; n < BG_BG_DYNAMIC_NODES_COUNT; ++n)
-        if (m_nodeInfo[n].bannerType == (n * 8 + team + 1))
-            ++count;
-
-    return count == BG_BG_DYNAMIC_NODES_COUNT;
 }

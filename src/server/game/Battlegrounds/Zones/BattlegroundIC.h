@@ -891,7 +891,7 @@ class BattlegroundIC : public Battleground
 
         uint32 GetNodeState(uint8 nodeType) const { return (uint8)nodePoint[nodeType].nodeState; }
 
-        bool IsAllNodesConrolledByTeam(uint32 team) const;  // overwrited
+        bool IsAllNodesControlledByTeam(uint32 team) const;  // overwrited
     private:
         uint32 closeFortressDoorsTimer;
         bool doorsClosed;

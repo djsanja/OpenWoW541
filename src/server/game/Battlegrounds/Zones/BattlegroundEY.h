@@ -368,7 +368,7 @@ class BattlegroundEY : public Battleground
         void EventPlayerDroppedFlag(Player* Source);
 
         /* achievement req. */
-        bool IsAllNodesConrolledByTeam(uint32 team) const;
+        bool IsAllNodesControlledByTeam(uint32 team) const;
 
         uint32 GetPrematureWinner();
     private:
