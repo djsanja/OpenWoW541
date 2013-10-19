@@ -1148,26 +1148,26 @@ void WorldSession::HandleSetActionButtonOpcode(WorldPacket& recvData)
 {
     ObjectGuid guid;
     uint8 slotId;
-    recvData >> slotId;
 
-    guid[5] = recvData.ReadBit();
-    guid[0] = recvData.ReadBit();
-    guid[2] = recvData.ReadBit();
-    guid[3] = recvData.ReadBit();
-    guid[1] = recvData.ReadBit();
-    guid[6] = recvData.ReadBit();
-    guid[7] = recvData.ReadBit();
     guid[4] = recvData.ReadBit();
+    guid[1] = recvData.ReadBit();
+    guid[0] = recvData.ReadBit();
+    guid[5] = recvData.ReadBit();
+    guid[6] = recvData.ReadBit();
+    guid[3] = recvData.ReadBit();
+    guid[7] = recvData.ReadBit();
+    guid[2] = recvData.ReadBit();
 
     recvData.ReadByteSeq(guid[2]);
     recvData.ReadByteSeq(guid[7]);
+    recvData.ReadByteSeq(guid[1]);
+    recvData.ReadByteSeq(guid[4]);
+    recvData.ReadByteSeq(guid[0]);
     recvData.ReadByteSeq(guid[5]);
     recvData.ReadByteSeq(guid[3]);
-    recvData.ReadByteSeq(guid[1]);
-    recvData.ReadByteSeq(guid[0]);
-    recvData.ReadByteSeq(guid[4]);
     recvData.ReadByteSeq(guid[6]);
 
+	recvData >> slotId;
     ActionButtonPACKET* button = (ActionButtonPACKET*)&guid;
 
     TC_LOG_DEBUG(LOG_FILTER_NETWORKIO, "CMSG_SET_ACTION_BUTTON slotId: %u actionId: %u", slotId, button->id);
@@ -1572,12 +1572,15 @@ void WorldSession::HandleRealmSplitOpcode(WorldPacket& recvData)
 
     std::string split_date = "01/01/01";
 
-    WorldPacket data(SMSG_REALM_SPLIT, 17);
+    WorldPacket data(SMSG_REALM_SPLIT, 0);
+    
     data.WriteBits(split_date.size(), 7);
     data.FlushBits();
-    data.WriteString(split_date);
-    data << uint32(1);                             // realm split state
+    
+    data << uint32(1);                             
     data << uint32(1);
+    data.WriteString(split_date);	// realm split state
+    
     SendPacket(&data);
     TC_LOG_DEBUG(LOG_FILTER_NETWORKIO, "SMSG_REALM_SPLIT");
 }

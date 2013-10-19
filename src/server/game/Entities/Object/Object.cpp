@@ -465,7 +465,7 @@ void Object::BuildMovementUpdate(ByteBuffer* data, uint16 flags) const //5.4.0
         data->WriteBit(guid1[6]);
         data->WriteBit(guid1[7]);
         data->WriteBit(self->m_movementInfo.transport.guid);
-        data->WriteBit(1); // hasSplineElevation
+        //data->WriteBit(1); 
 
         if (self->m_movementInfo.transport.guid) 
         {
@@ -483,7 +483,7 @@ void Object::BuildMovementUpdate(ByteBuffer* data, uint16 flags) const //5.4.0
             data->WriteBit(transGuid[4]);
         }
 
-        //data->WriteBit(0);
+        data->WriteBit(1);
         data->WriteBits(0, 19); //bits160
         data->WriteBit(!movementFlagsExtra);
         data->WriteBit(guid1[2]);
