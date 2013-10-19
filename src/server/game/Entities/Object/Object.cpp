@@ -416,11 +416,11 @@ void Object::BuildMovementUpdate(ByteBuffer* data, uint16 flags) const //5.4.0
         data->WriteBit(transGuid[5]);
         data->WriteBit(transGuid[0]);
         data->WriteBit(transGuid[6]);
-        data->WriteBit(0);    // hasGOTransportTime2
+        data->WriteBit(0); // hasGOTransportTime2
         data->WriteBit(transGuid[7]);
         data->WriteBit(transGuid[3]);
         data->WriteBit(transGuid[2]);
-        data->WriteBit(0);    // hasGOTransportTime3
+        data->WriteBit(0); // hasGOTransportTime3
         data->WriteBit(transGuid[4]);
         data->WriteBit(transGuid[1]);
     }
@@ -465,9 +465,9 @@ void Object::BuildMovementUpdate(ByteBuffer* data, uint16 flags) const //5.4.0
         data->WriteBit(guid1[6]);
         data->WriteBit(guid1[7]);
         data->WriteBit(self->m_movementInfo.transport.guid);
-        //data->WriteBit(1); 
+        data->WriteBit(1); // hasSplineElevation
 
-        if (self->m_movementInfo.transport.guid) 
+        if (self->m_movementInfo.transport.guid)
         {
             ObjectGuid transGuid = self->m_movementInfo.transport.guid;
 
@@ -483,7 +483,7 @@ void Object::BuildMovementUpdate(ByteBuffer* data, uint16 flags) const //5.4.0
             data->WriteBit(transGuid[4]);
         }
 
-        data->WriteBit(1);
+        //data->WriteBit(0);
         data->WriteBits(0, 19); //bits160
         data->WriteBit(!movementFlagsExtra);
         data->WriteBit(guid1[2]);
@@ -493,7 +493,7 @@ void Object::BuildMovementUpdate(ByteBuffer* data, uint16 flags) const //5.4.0
         if (movementFlags)
             data->WriteBits(movementFlags, 30);
 
-        data->WriteBit(hasFallData);  
+        data->WriteBit(hasFallData);
 
         if (movementFlagsExtra)
             data->WriteBits(movementFlagsExtra, 13);
@@ -574,20 +574,20 @@ void Object::BuildMovementUpdate(ByteBuffer* data, uint16 flags) const //5.4.0
             }
 
             *data << float(self->m_movementInfo.jump.zspeed);
-            *data << uint32(self->m_movementInfo.jump.fallTime);        
+            *data << uint32(self->m_movementInfo.jump.fallTime);
         }
         // haspitch
         *data << float(self->GetPositionY());
         *data << uint32(0); // time
         *data << self->GetSpeed(MOVE_PITCH_RATE); //pitch speed
-        data->WriteByteSeq(guid1[7]); 
+        data->WriteByteSeq(guid1[7]);
         *data << float(self->GetOrientation());
         *data << self->GetSpeed(MOVE_FLIGHT_BACK);
         *data << self->GetSpeed(MOVE_SWIM);
         data->WriteByteSeq(guid1[1]);
         *data << float(self->GetPositionZ());
         // hasSplineElevation
-        data->WriteByteSeq(guid1[4]); 
+        data->WriteByteSeq(guid1[4]);
         *data << self->GetSpeed(MOVE_FLIGHT);
         *data << self->GetSpeed(MOVE_RUN);
         *data << self->GetSpeed(MOVE_RUN_BACK);
@@ -626,7 +626,7 @@ void Object::BuildMovementUpdate(ByteBuffer* data, uint16 flags) const //5.4.0
 
     if (flags & UPDATEFLAG_STATIONARY_POSITION)
     {
-        WorldObject const* self = static_cast<WorldObject const*>(this); 
+        WorldObject const* self = static_cast<WorldObject const*>(this);
         *data << float(self->GetOrientation());
         if (Unit const* unit = ToUnit())
             *data << float(unit->GetPositionZMinusOffset());
@@ -638,7 +638,7 @@ void Object::BuildMovementUpdate(ByteBuffer* data, uint16 flags) const //5.4.0
 
     if (flags & UPDATEFLAG_HAS_TARGET)
     {
-        ObjectGuid victimGuid = self->GetVictim()->GetGUID();   // checked in BuildCreateUpdateBlockForPlayer
+        ObjectGuid victimGuid = self->GetVictim()->GetGUID(); // checked in BuildCreateUpdateBlockForPlayer
         data->WriteByteSeq(victimGuid[1]);
         data->WriteByteSeq(victimGuid[5]);
         data->WriteByteSeq(victimGuid[4]);
@@ -660,7 +660,7 @@ void Object::BuildMovementUpdate(ByteBuffer* data, uint16 flags) const //5.4.0
         //*data << uint16(0);
         //*data << uint16(0);
         //*data << uint16(0);
-    }   
+    }
 }
 
 void Object::BuildValuesUpdate(uint8 updateType, ByteBuffer* data, Player* target) const
