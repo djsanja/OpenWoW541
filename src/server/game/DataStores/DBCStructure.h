@@ -744,22 +744,20 @@ struct ChrClassesEntry
 {
     uint32  ClassID;                                        // 0
     uint32  powerType;                                      // 1        m_DisplayPower
-                                                            // 2        m_petNameToken
-    char* name;                                             // 3        m_name_lang
-                                                            // 4        Unknown (All Zero)
-                                                            // 5        Unknown (All Zero)
+                                                            // 2        Unused
+    char* name;                                             // 3
+                                                            // 4-5      Unused
                                                             // 6        Class Name
-    uint32 spellfamily;                                     // 7        m_spellClassSet
-    uint32 CinematicSequence;                               // 8        m_cinematicSequenceID
-                                                            // 9        m_flags (Camera??)
+    uint32 spellfamily;                                     // 7
+                                                            // 8
+    uint32 CinematicSequence;                               // 9        m_cinematicSequenceID
     uint32 APPerStrenth;                                    // 10       Attack Power bonus per point of strength
     uint32 APPerAgility;                                    // 11       Attack Power bonus per point of agility
     uint32 RAPPerAgility;                                   // 12       Ranged Attack Power bonus per point of agility
                                                             // 13       Unknown (color/icon/ID ??)
                                                             // 14       Unknown (DK has 236082)
                                                             // 15       Unknown (DK has 236082)
-                                                            // 16       Unknown (All Zero)
-                                                            // 17       Unknown (???)
+                                                            // 16       Unused
 };
 
 struct ChrRacesEntry
