@@ -43,88 +43,39 @@ void WorldSession::SendNameQueryOpcode(ObjectGuid guid)
     
     data.WriteBit(guid[5]);
     data.WriteBit(guid[7]);
-    data.WriteBit(guid[3]);
     data.WriteBit(guid[0]);
-   	data.WriteBit(guid[4]);
     data.WriteBit(guid[1]);
-    data.WriteBit(guid[6]);
-    data.WriteBit(guid[2]);
-    
-    data.FlushBits();
-    
-    data.WriteByteSeq(guid[7]);
-    data.WriteByteSeq(guid[4]);
-    data.WriteByteSeq(guid[3]);
-    
-    data.WriteByteSeq(uint8(0));
-    data.WriteByteSeq(uint32(0));
-    
-	data << uint8(nameData->m_race);
-    data << uint8(nameData->m_gender);
-	data << uint8(nameData->m_level);
-    data << uint8(nameData->m_class);
-    data << uint32(1);
-    
-    data.WriteByteSeq(guid[1]);
-    data.WriteByteSeq(guid[5]);
-    data.WriteByteSeq(guid[0]);
-    data.WriteByteSeq(guid[6]);
-    data.WriteByteSeq(guid[2]);
-    
-    data.WriteBit(guid[6]);
-    
-    data.WriteBit(0);
     data.WriteBits(nameData->m_name.size(), 6);
-    
-    data.WriteBit(guid[1]);
-    data.WriteBit(guid[7]);
+    data.WriteBit(guid[6]);
+    data.WriteBit(0);
+    data.WriteBit(guid[3]);
     data.WriteBit(guid[2]);
-    
-    data.WriteBit(0);
-    
     data.WriteBit(guid[4]);
-    data.WriteBit(guid[0]);
-    
     data.WriteBit(0);
-    
-   
-	for (int i = 0; i < 5; i++)
-	{
-		data.WriteBit(0);
-		data.WriteBit(7);
-	}
-	
-	data.WriteBit(0);
-	data.WriteBit(guid[3]);
-	
-	data.WriteBit(0);
-	data.WriteBit(0);
-	
-	data.WriteBit(guid[5]);
-	
-	data.WriteBit(0);
-	data.WriteBit(0);
-	data.WriteBit(0);
-	
-	data.FlushBits();
-	
-	data.WriteString(nameData->m_name); // played name
-	
-	data.WriteByteSeq(guid[4]);
+
+    data.FlushBits();
+
+    data.WriteByteSeq(guid[0]);
+    data.WriteByteSeq(guid[1]);
+    data << uint8(0); // name known
+    data.WriteByteSeq(guid[3]);
+    data.WriteByteSeq(guid[4]);
     data.WriteByteSeq(guid[6]);
     data.WriteByteSeq(guid[5]);
-    data.WriteByteSeq(guid[1]);
-    data.WriteByteSeq(guid[7]);
-    data.WriteByteSeq(guid[3]);
-    data.WriteByteSeq(guid[0]);
+    data << uint8(nameData->m_gender);
+    data << uint8(nameData->m_race);
+   // data << uint32(realmId);
+    data << uint8(nameData->m_class);
     data.WriteByteSeq(guid[2]);
-    
-    //if (DeclinedName const* names = (player ? player->GetDeclinedNames() : NULL))
-    //{
-        //data << uint8(1); // Name is declined
-       // for (uint8 i = 0; i < MAX_DECLINED_NAME_CASES; ++i)
-     //       data << names->name[i];
-   // }
+    data.WriteByteSeq(guid[7]);
+    data.WriteString(nameData->m_name); // played name
+
+    if (DeclinedName const* names = (player ? player->GetDeclinedNames() : NULL))
+    {
+        data << uint8(1); // Name is declined
+        for (uint8 i = 0; i < MAX_DECLINED_NAME_CASES; ++i)
+            data << names->name[i];
+    }
    // else
      //   data << uint8(0); // Name is not declined
 
@@ -153,18 +104,12 @@ void WorldSession::HandlePlayerNameQueryOpcode(WorldPacket& recvData)
         }while (result->NextRow());
     }
 
-	data << uint8(0);
     data << rrealmId;
-    
+    data << uint8(0);
     data.WriteBits(realmName.size(), 8);
-    data.WriteBit(1);
     data.WriteBits(realmName.size(), 8);
-    
-    data.FlushBits();
-    
     data.WriteString(realmName);
     data.WriteString(realmName);
-    
     SendPacket(&data);
 }
 
@@ -172,38 +117,35 @@ void WorldSession::HandleNameQueryOpcode(WorldPacket& recvData)
 {
     ObjectGuid guid;
 
+    uint8 bit16, bit24;
     uint32 unk, unk1;
     
-    guid[5] = recvData.ReadBit();
+    guid[3] = recvData.ReadBit();
+    guid[1] = recvData.ReadBit();
+    guid[4] = recvData.ReadBit();
+    guid[2] = recvData.ReadBit();
     guid[7] = recvData.ReadBit();
     guid[0] = recvData.ReadBit();
-    guid[1] = recvData.ReadBit();
-    
-    recvData >> unk;
-        
+    guid[5] = recvData.ReadBit();
+    bit16 = recvData.ReadBit(); // bit16
     guid[6] = recvData.ReadBit();
-    
-    recvData >> unk1;
-    
-    guid[3] = recvData.ReadBit();
-    guid[2] = recvData.ReadBit();
-    guid[4] = recvData.ReadBit();
+    bit24 = recvData.ReadBit(); // bit24
 
+    recvData.ReadByteSeq(guid[6]);
     recvData.ReadByteSeq(guid[0]);
-    recvData.ReadByteSeq(guid[1]);
+    recvData.ReadByteSeq(guid[2]);
     recvData.ReadByteSeq(guid[3]);
     recvData.ReadByteSeq(guid[4]);
-    recvData.ReadByteSeq(guid[6]);
     recvData.ReadByteSeq(guid[5]);
-    recvData.ReadByteSeq(guid[2]);
     recvData.ReadByteSeq(guid[7]);
+    recvData.ReadByteSeq(guid[1]);
 
-	if(unk)
-		recvData.ReadBit();
-		
-	if(unk1)
-		recvData.ReadBit();
-		
+    if (bit24)
+        recvData >> unk;
+
+    if (bit16)
+        recvData >> unk1;
+
     // This is disable by default to prevent lots of console spam
     // TC_LOG_INFO(LOG_FILTER_NETWORKIO, "HandleNameQueryOpcode %u", guid);
 
