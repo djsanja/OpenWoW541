@@ -1006,7 +1006,6 @@ struct FactionEntry
     char*       name;                                       // 23       m_name_lang
     //char*     description;                                // 24       m_description_lang
     uint32      GroupExpansion;                             // 25       m_factionGroupExpansion
-    // uint8 unk                                            // 26 5.3.0
 
     // helpers
     bool CanHaveReputation() const
