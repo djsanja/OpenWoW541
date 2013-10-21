@@ -917,7 +917,7 @@ struct CurrencyTypesEntry
     uint32 WeekCap;                                         // 8
     uint32 Flags;                                           // 9
     //uint8 unk                                             // 10 5.3.0
-    //char* description;                                    // 11
+
 };
 
 struct DestructibleModelDataEntry
@@ -956,8 +956,8 @@ struct DungeonEncounterEntry
     //uint32 unk0;                                          // 3
     uint32 encounterIndex;                                  // 4        encounter index for creating completed mask
     char* encounterName;                                    // 5        encounter name
-    //uint32 nameFlags;                                     // 21
-    //uint32 unk1;                                          // 22
+    //uint32 nameFlags;                                     // 6
+    //uint32 unk1;                                          // 7
 };
 
 struct DurabilityCostsEntry
@@ -1434,12 +1434,6 @@ struct LFGDungeonEntry
     uint32  randomCategoryId;                               // 17 RandomDungeonID assigned for this dungeon
     // UNKNOWN                                              // 21 5.3.0
     // UNKNOWN                                              // 22 5.3.0
-    // UNKNOWN                                              // 23 5.3.0
-    // UNKNOWN                                              // 24 5.4.0
-    // UNKNOWN                                              // 25 5.4.0
-    // UNKNOWN                                              // 26 5.4.0
-    // UNKNOWN                                              // 27 5.4.0
-    // UNKNOWN                                              // 28 5.4.0
     // Helpers
     uint32 Entry() const { return ID + (type << 24); }
 };
@@ -1548,10 +1542,10 @@ struct MapDifficultyEntry
 {
     //uint32      Id;                                       // 0
     uint32      MapId;                                      // 1
-    uint32      Difficulty;                                 // 2 (for arenas: arena slot)
+    uint32      Difficulty;                                 // 2       (for arenas: arena slot)
     char*   areaTriggerText;                                // 3        m_message_lang (text showed when transfer to map failed)
-    uint32      resetTime;                                  // 4,       m_raidDuration in secs, 0 if no fixed reset time
-    uint32      maxPlayers;                                 // 5,       m_maxPlayers some heroic versions have 0 when expected same amount as in normal version
+    uint32      resetTime;                                  // 4        m_raidDuration in secs, 0 if no fixed reset time
+    uint32      maxPlayers;                                 // 5        m_maxPlayers some heroic versions have 0 when expected same amount as in normal version
 };
 
 struct MountCapabilityEntry
@@ -1705,7 +1699,6 @@ struct SkillLineEntry
     uint32    spellIcon;                                    // 5        m_spellIconID
     //char*     alternateVerb;                              // 6        m_alternateVerb_lang
     uint32    canLink;                                      // 7        m_canLink (prof. with recipes)
-    // UNKNOWN                                              // 8        5.3.0
 };
 
 struct SkillLineAbilityEntry
@@ -1744,6 +1737,7 @@ struct SoundEntriesEntry
     //unk                                                   // 32       4.0.0
     //unk                                                   // 33       4.0.0
     //unk                                                   // 34       5.3.0
+    //unk                                                   // 35       5.4.0
 };
 
 // SpellEffect.dbc
@@ -1793,8 +1787,6 @@ struct SpellAuraOptionsEntry
     uint32    procChance;                                   // 4       m_procChance
     uint32    procCharges;                                  // 5       m_procCharges
     uint32    procFlags;                                    // 6       m_procTypeMask
-    //uint32  unk;                                          // 7       5.4.0
-    //uint32  unk;                                          // 8       5.4.0
 };
 
 // SpellAuraRestrictions.dbc/
