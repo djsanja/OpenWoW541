@@ -149,7 +149,7 @@ enum EUnitFields
     UNIT_MOD_HASTE_REGEN                             = OBJECT_END + 0x004D,
     UNIT_CREATED_BY_SPELL                            = OBJECT_END + 0x004E, // Size: 1, Type: INT, Flags: PUBLIC
     UNIT_NPC_FLAGS                                   = OBJECT_END + 0x004F, // Size: 1, Type: INT, Flags: DYNAMIC
-    UNIT_NPC_EMOTESTATE                              = OBJECT_END + 0x0050, // Size: 2, Type: INT, Flags: PUBLIC
+    UNIT_NPC_EMOTESTATE                              = OBJECT_END + 0x0051, // Size: 2, Type: INT, Flags: PUBLIC
     UNIT_FIELD_STAT0                                 = OBJECT_END + 0x0052, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
     UNIT_FIELD_STAT1                                 = OBJECT_END + 0x0053, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
     UNIT_FIELD_STAT2                                 = OBJECT_END + 0x0054, // Size: 1, Type: INT, Flags: PRIVATE, OWNER
