@@ -359,7 +359,6 @@ enum Opcodes
     CMSG_MOVE_CHNG_TRANSPORT                          = 0x1361, // 17538
     CMSG_MOVE_ENABLE_SWIM_TO_FLY_TRANS_ACK            = 0x0000,
     CMSG_MOVE_FALL_RESET                              = 0x12C1, // 17538
-	CMSG_MOVE_SET_FLY                                 = 0x1769, // 17538 ??
     CMSG_MOVE_FEATHER_FALL_ACK                        = 0x3110,
     CMSG_MOVE_FORCE_FLIGHT_BACK_SPEED_CHANGE_ACK      = 0x310E,
     CMSG_MOVE_FORCE_FLIGHT_SPEED_CHANGE_ACK           = 0x7314,
